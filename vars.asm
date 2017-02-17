@@ -2,7 +2,10 @@ raster    = $d012
 cborde    = $d020
 cfondo    = $d021
 spractive = $d015
-sprxpandX = $d01d          
+sprxpandX = $d01d    
+scrPtr = $0400
+scrColPtr = $d800
+      
           
 ; direcciones jetpac 
 sprcolor  = $d027
