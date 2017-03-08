@@ -58,7 +58,13 @@ defm      initVars
 
           lda            #$0       ; fire flag 0      
           sta            fire1     
+          
+          lda            #gravity
+          sta            gravityCounter
+          
           endm
+
+
 
 defm      copyScreen
           ldx            #$00      

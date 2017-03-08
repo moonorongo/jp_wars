@@ -11,6 +11,11 @@ animatePlayer1
 chkDown   lda            joy2      
           and            #2        ; down
           bne            chkLeft   
+          
+          jsr            checkFloorP1 ; solo baja si no esta en el piso
+          cpx            #1      
+          beq            chkLeft 
+          
           inc            spry      
   
 chkLeft   lda            joy2      
@@ -38,5 +43,43 @@ chkFire   lda            joy2
           
 ;         end check joystick          
           
+
 next
+          ldx            gravityCounter
+          dex
+          stx            gravityCounter
+          cpx            #$0       
+          bne            @exit
+          
+          jsr            checkFloorP1
+          
+          cpx            #1      ; check floor (si result checkFloorP1 es 1 es el piso)
+          beq            @skipGravity
+          
+         
+          inc            spry      ; gravity :P 
+
+@skipGravity
+          ldx            #gravity
+          stx            gravityCounter
+          
+          
+@exit
           rts
+; ------------- end of main animatePlayer1 ---------------------------                
+
+
+; verifica posicion Y de P1, y retorna 1 en X si es el piso 
+checkFloorP1
+          ldx            spry      
+          cpx            #floorPosition
+          beq            @returnTrue    ; is equal
+          bcs            @returnTrue    ; or greater ;) 
+          ldx            #0        
+          rts
+@returnTrue
+          ldx            #1        
+          rts
+          
+          
+

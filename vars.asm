@@ -1,9 +1,15 @@
+; constantes
+gravity   = $05                    ; usado para setear la 'fuerza' de la gravedad, 1 = super fuerte, mayor = mas debil
+floorPosition = 220          
+
+
+; direcciones memoria
 raster    = $d012
 cborde    = $d020
 cfondo    = $d021
 spractive = $d015
 sprxpandX = $d01d    
-scrPtr = $0400
+scrPtr    = $0400
 scrColPtr = $d800
       
           
@@ -13,7 +19,8 @@ sprpoint  = $07f8
 sprx      = $d000
 spry      = $d001
 joy2      = $dc00
-fire1     = $02         ; zero page direccion sin usar
+fire1     = $02                    ; zero page direccion sin usar
+gravityCounter = $04
           
 ; direcciones disparo
 sprcolorFire  = $d028
@@ -22,3 +29,5 @@ sprxFire      = $d002
 spryFire      = $d003
           
 skiprt    = $03
+          
+
