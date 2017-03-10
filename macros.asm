@@ -22,7 +22,7 @@ defm      initVars
           sta            skiprt
           
 
-          ldx            #172      ; posicionamos jetpac
+          ldx            #50      ; posicionamos jetpac
           stx            sprx
           ldx            #139       
           stx            spry
@@ -50,10 +50,10 @@ defm      initVars
           lda            #$02      
           sta            sprxpandX ; expandimos X el disparo.
 
-          lda            #$21      
+          lda            #ptrJPRight      
           sta            sprpoint  ; sprite 0 en $0840
           
-          lda            #$22 
+          lda            #ptrJPFire      
           sta            sprpointFire  ; sprite 0 en $0880
 
           lda            #$0       ; fire flag 0      

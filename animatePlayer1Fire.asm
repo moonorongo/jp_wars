@@ -16,14 +16,40 @@ animatePlayer1Fire
           adc            #12
           sta            sprxFire
           inc            fire1     ; paso a status 2 (disparando)
-
+          
+          ldx            sprpoint  
+          cpx            #ptrJPLeft
+          beq            @setDirFireLeft
+          
+          ldx            #ptrJPRight
+          stx            dirFire   
+          jmp            @loop     
+          
+          
+@setDirFireLeft
+          ldx            #ptrJPLeft
+          stx            dirFire             
+          
+; ver por que esta poronga de disparos no anda... 
 @loop
           lda            #1        
+          clc
+          
+          ldx            dirFire   
+          cpx            #ptrJPLeft
+          beq            @decrementFire
+          
           adc            sprxFire  ; incremento 3 x disparo
           sta            sprxFire  
-          
           bcs            @setStatus0
           jmp            @next     
+
+@decrementFire
+          sbc            sprxFire  ; decremento 3 x disparo
+          sta            sprxFire  
+          bcs            @setStatus0
+          jmp            @next     
+
           
 @setStatus0          
           ldx            #$0       ; si no seteo flag en 0

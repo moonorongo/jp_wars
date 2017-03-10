@@ -6,6 +6,10 @@ animatePlayer1
           lda            joy2      
           and            #1        ; up
           bne            chkDown   
+          jsr            checkTopP1 ; solo sube si no llego al tope
+          cpx            #1        
+          beq            chkDown   
+          
           dec            spry      
 
 chkDown   lda            joy2      
@@ -21,11 +25,25 @@ chkDown   lda            joy2
 chkLeft   lda            joy2      
           and            #4        ; left
           bne            chkRight  
+          
+          jsr            checkFloorP1 ; solo se mueve si esta volando
+          cpx            #1      
+          beq            chkRight  
+
+          lda            #ptrJPLeft      
+          sta            sprpoint  
           dec            sprx      
           
 chkRight  lda            joy2      
           and            #8        ; right
           bne            chkFire   
+          
+          jsr            checkFloorP1 ; solo se mueve si esta volando
+          cpx            #1      
+          beq            chkFire  
+
+          lda            #ptrJPRight      
+          sta            sprpoint  
           inc            sprx      
 
 chkFire   lda            joy2      
@@ -81,5 +99,17 @@ checkFloorP1
           ldx            #1        
           rts
           
+
+; verifica posicion Y de P1, y retorna 1 en X si es el top
+checkTopP1
+          ldx            spry      
+          cpx            #topPosition
+          beq            @returnTrue    ; is equal
+          ;bcs            @returnTrue    ; or greater ;) 
+          ldx            #0        
+          rts
+@returnTrue
+          ldx            #1        
+          rts
           
 

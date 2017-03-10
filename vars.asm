@@ -1,6 +1,13 @@
 ; constantes
 gravity   = $05                    ; usado para setear la 'fuerza' de la gravedad, 1 = super fuerte, mayor = mas debil
-floorPosition = 220          
+floorPosition = 223
+topPosition = 52
+          
+ptrJPLeft = $23
+ptrJPRight = $21
+ptrJPFire = $22
+
+
 
 
 ; direcciones memoria
