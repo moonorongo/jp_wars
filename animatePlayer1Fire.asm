@@ -35,7 +35,6 @@ animatePlayer1Fire
           ldx            #ptrJPLeft
           stx            dirFire             
           
-; ver por que esta poronga de disparos no anda... 
 @loop
           
           ldx            dirFire   
