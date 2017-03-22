@@ -12,14 +12,15 @@ animatePlayer1Fire
           ldx            spry
           stx            spryFire  
 
-          lda            sprx      
-          adc            #12
-          sta            sprxFire
           inc            fire1     ; paso a status 2 (disparando)
           
           ldx            sprpoint  
           cpx            #ptrJPLeft
           beq            @setDirFireLeft
+
+          lda            sprx      
+          adc            #12
+          sta            sprxFire
           
           ldx            #ptrJPRight
           stx            dirFire   
@@ -27,27 +28,33 @@ animatePlayer1Fire
           
           
 @setDirFireLeft
+          lda            sprx      
+          sbc            #36
+          sta            sprxFire
+
           ldx            #ptrJPLeft
           stx            dirFire             
           
 ; ver por que esta poronga de disparos no anda... 
 @loop
-          lda            #1        
-          clc
           
           ldx            dirFire   
           cpx            #ptrJPLeft
           beq            @decrementFire
           
-          adc            sprxFire  ; incremento 3 x disparo
+          lda            sprxFire  
+          clc
+          adc            #$02 ; cantidad de pixels que aumenta
           sta            sprxFire  
           bcs            @setStatus0
           jmp            @next     
 
 @decrementFire
-          sbc            sprxFire  ; decremento 3 x disparo
+          lda            sprxFire   
+          sec
+          sbc            #$02 ; cantidad de pixels que decrementa
           sta            sprxFire  
-          bcs            @setStatus0
+          bcc            @setStatus0
           jmp            @next     
 
           

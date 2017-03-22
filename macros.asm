@@ -13,6 +13,8 @@ defm      waitrt
           endm
 
 defm      initVars
+          cld                      ; clear decimal flag.
+          
           lda            #$00      ; borde y fondo negro
           sta            cborde     
           sta            cfondo

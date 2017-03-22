@@ -33,7 +33,8 @@ gravityCounter = $04
 sprcolorFire  = $d028
 sprpointFire  = $07f9
 sprxFire      = $d002
-spryFire      = $d003
+spryFire  = $d003
+; dirFire esta en la direccion de memoria que me sobra del sprite de disparo... mhmm          
           
 skiprt    = $03
           
