@@ -1,4 +1,3 @@
-; constantes
 gravity   = $05                    ; usado para setear la 'fuerza' de la gravedad, 1 = super fuerte, mayor = mas debil
 floorPosition = 223
 topPosition = 52

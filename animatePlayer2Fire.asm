@@ -1,68 +1,68 @@
-animatePlayer1Fire
-          ldx            fire1     
+animatePlayer2Fire
+          ldx            fire2
           cpx            #$0       
           bne            @initFire
           rts                      ; vuelve si status fire es 0
           
 @initFire
-          ldx            fire1     
+          ldx            fire2     
           cpx            #$1       
           bne            @loop     
                                    ; init fire (status 1)          
-          ldx            spry
-          stx            spryFire  
+          ldx            spry2
+          stx            spryFire2
 
-          inc            fire1     ; paso a status 2 (disparando)
+          inc            fire2     ; paso a status 2 (disparando)
           
-          ldx            sprpoint  
+          ldx            sprpoint2
           cpx            #ptrJPLeft
           beq            @setDirFireLeft
 
-          lda            sprx      
+          lda            sprx2
           adc            #12
-          sta            sprxFire
+          sta            sprxFire2
           
           ldx            #ptrJPRight
-          stx            dirFire   
+          stx            dirFire2
           jmp            @loop     
           
           
 @setDirFireLeft
-          lda            sprx      
+          lda            sprx2
           sbc            #36
-          sta            sprxFire
+          sta            sprxFire2
 
           ldx            #ptrJPLeft
-          stx            dirFire             
+          stx            dirFire2
           
 @loop
           
-          ldx            dirFire   
+          ldx            dirFire2
           cpx            #ptrJPLeft
           beq            @decrementFire
           
-          lda            sprxFire  
+          lda            sprxFire2  
           clc
           adc            #$02 ; cantidad de pixels que aumenta
-          sta            sprxFire  
+          sta            sprxFire2
           bcs            @setStatus0
           jmp            @next     
 
 @decrementFire
-          lda            sprxFire   
+          lda            sprxFire2
           sec
           sbc            #$02 ; cantidad de pixels que decrementa
-          sta            sprxFire  
+          sta            sprxFire2
           bcc            @setStatus0
           jmp            @next     
 
           
 @setStatus0          
           ldx            #$0       ; si no seteo flag en 0
-          stx            fire1     
+          stx            fire2
           
           lda            spractive  ; los sprites que esten activos
-          and            #%11111101 ; apago el sprite 2 (disparo P1)
+          and            #%11110111 ; apago el sprite 4 (disparo P2)
           sta            spractive  ; desactivamos el disparo
 
 @next          

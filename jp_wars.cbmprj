@@ -36,13 +36,15 @@
         <PostBuildCommands />
     </BuildEvents>
     <BuildList>
+        <FileName>syscall.asm</FileName>
         <FileName>sprites.asm</FileName>
         <FileName>vars.asm</FileName>
         <FileName>macros.asm</FileName>
+        <FileName>main.asm</FileName>
         <FileName>animatePlayer1.asm</FileName>
         <FileName>animatePlayer1Fire.asm</FileName>
-        <FileName>main.asm</FileName>
         <FileName>animatePlayer2.asm</FileName>
+        <FileName>animatePlayer2Fire.asm</FileName>
         <FileName>screen.asm</FileName>
         <FileName>screen_colour.asm</FileName>
     </BuildList>
@@ -57,7 +59,7 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>True</Topmost>
+            <Topmost>False</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
@@ -73,6 +75,17 @@
         </SourceFile>
         <SourceFile>
             <Name>animatePlayer2.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>animatePlayer2Fire.asm</Name>
             <PrgName />
             <FileType>2</FileType>
             <IncludeInBuild>True</IncludeInBuild>
@@ -146,6 +159,17 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>syscall.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>True</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>

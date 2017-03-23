@@ -57,9 +57,9 @@ animatePlayer2
           lda            #1        ; setea status fire1 
           sta            fire2
           
-                ;; ACA TENER EN CUENTA EL BIT... TENGO QUE CARGAR EN A spractive
-          lda            #%00000101 ; sprites 1 y 3 (los 2 players)
-          ora            #%00001000 ; sprite 4 (disparo )
+
+          lda            spractive  ; los sprites que esten activos
+          ora            #%00001000 ; sprite 4 (disparo P2)
           sta            spractive  ;activamos el disparo
           
 ;         end check joystick          

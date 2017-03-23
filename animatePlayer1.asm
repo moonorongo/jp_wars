@@ -57,8 +57,8 @@ animatePlayer1
           lda            #1        ; setea status fire1 
           sta            fire1     
           
-          lda            #%00000101 ; sprites 1 y 3 (los 2 players)
-          ora            #%00000010 ; sprite 2 (disparo )
+          lda            spractive  ; los sprites que esten activos
+          ora            #%00000010 ; activo sprite 2 (disparo P1)
           sta            spractive  ;activamos el disparo
           
 ;         end check joystick          
