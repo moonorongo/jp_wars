@@ -8,6 +8,7 @@
 main_loop
           jsr            animatePlayer1
           jsr            animatePlayer1Fire
+          jsr            animatePlayer2
           
           waitrt
           jmp            main_loop 

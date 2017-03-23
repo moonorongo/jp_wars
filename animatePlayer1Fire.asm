@@ -60,9 +60,11 @@ animatePlayer1Fire
 @setStatus0          
           ldx            #$0       ; si no seteo flag en 0
           stx            fire1     
-          lda            #$01      
-          sta            spractive ; desactivamos el sprite 1 
           
+          lda            #%00000101 ; sprites 1 y 3 (los 2 players)
+          and            #%11111101 ; sprite 2 (disparo)
+          sta            spractive  ; desactivamos el disparo
+
 @next          
           rts
           

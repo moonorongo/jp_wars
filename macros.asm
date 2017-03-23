@@ -24,45 +24,59 @@ defm      initVars
           sta            skiprt
           
 
-          ldx            #50      ; posicionamos jetpac
+          ldx            #50      ; posicionamos jetpac 1
           stx            sprx
           ldx            #139       
           stx            spry
-          
 
-          ldx            #196      ; posicionamos disparo
+          ldx            #150      ; posicionamos jetpac 2
+          stx            sprx2
+          ldx            #139       
+          stx            spry2
+          
+          ldx            #196      ; posicionamos disparo 1
           stx            sprxFire
           ldx            #139       
           stx            spryFire
-            
-          lda            #$01      
-          sta            spractive ;activamos el sprite 0 
+
+          ldx            #196      ; posicionamos disparo 2
+          stx            sprxFire2
+          ldx            #139       
+          stx            spryFire2
+
+          lda            #$05      
+          sta            spractive ;activamos el sprite 0 y 2
           
           lda            #$0d
-          sta            sprcolor  ; jetpac color verde claro
+          sta            sprcolor  ; jetpac 1 color verde claro
+          
+          lda            #$03
+          sta            sprcolor2  ; jetpac 2 color cyan
 
           lda            #$0a
-          sta            sprcolorFire; fire color amarillo
+          sta            sprcolorFire  ; fire color red
+          sta            sprcolorFire2  ; fire color red
 
-;          lda            #$03      
-;          sta            sprcolor  ; jetpac2 color cyan
-
-; ambos disparen light red
-
-          lda            #$02      
-          sta            sprxpandX ; expandimos X el disparo.
+          lda            #$0a      
+          sta            sprxpandX ; expandimos X el disparo 1 y 2.
 
           lda            #ptrJPRight      
-          sta            sprpoint  ; sprite 0 en $0840
+          sta            sprpoint  ; jet pac 1 mirando a la derecha
+
+          lda            #ptrJPLeft
+          sta            sprpoint2  ; jet pac 1 mirando a la izquierda
           
           lda            #ptrJPFire      
-          sta            sprpointFire  ; sprite 0 en $0880
+          sta            sprpointFire  
+          sta            sprpointFire2  ; punteros de disparo
 
-          lda            #$0       ; fire flag 0      
+          lda            #$0       ; fire flag 
           sta            fire1     
+          sta            fire2     
           
           lda            #gravity
           sta            gravityCounter
+          sta            gravityCounter2
           
           endm
 
