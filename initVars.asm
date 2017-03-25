@@ -9,8 +9,9 @@ initVars
           lda            #$03      ; inicializo skiprt (conteo hasta hacer un wait retrace)
           sta            skiprt
           
-          ldx            #0        ; contador hits jetpac 1
+          ldx            #0        ; contador hits jetpac 1 y 2
           stx            JP1hits   
+          stx            JP2hits   
           
           ldx            #50      ; posicionamos jetpac 1
           stx            sprx
@@ -66,7 +67,9 @@ initVars
           sta            gravityCounter
           sta            gravityCounter2
           
-          jsr updateJP1hits
+          jsr            updateJP1hits
+          jsr            updateJP2hits
+          
           
 
           rts

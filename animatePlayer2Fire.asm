@@ -58,13 +58,21 @@ animatePlayer2Fire
 
           
 @setStatus0          
-          ldx            #$0       ; si no seteo flag en 0
-          stx            fire2
+          jsr turnOffFire2
           
-          lda            spractive  ; los sprites que esten activos
-          and            #%11110111 ; apago el sprite 4 (disparo P2)
-          sta            spractive  ; desactivamos el disparo
 
 @next          
           rts
           
+
+
+
+; turn off fire player 2
+turnOffFire2
+          ldx            #$0       ; si no seteo flag en 0
+          stx            fire2
+          
+          lda            spractive  ; los sprites que esten activos
+          and            #255 - FJP2 ; apago disparo P2
+          sta            spractive ; desactivamos el disparo
+          rts

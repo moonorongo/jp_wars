@@ -49,6 +49,7 @@ spry2      = $d005
 fire2     = $2a                   ; zero page direccion sin usar
 gravityCounter2 = $04
 JP2 = $04          
+JP2hits = $c001
 
 ; direcciones disparo
 sprcolorFire2  = $d02a

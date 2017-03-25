@@ -116,3 +116,34 @@ checkTopP2
           rts
           
 
+
+
+hitJP2Animation
+          ldx            sprpoint  
+          cpx            #ptrJPRight
+          bne            @decxspr2 
+          
+          inc            sprx2      
+          inc            sprx2      
+          inc            sprx2     
+          jmp            @exit     
+          
+@decxspr2          
+          dec            sprx2      
+          dec            sprx2      
+          dec            sprx2     
+          
+@exit          
+          rts
+          
+
+
+
+; muestra los hits del jetpac 2
+updateJP2hits
+          lda            JP2hits   
+          jsr            convert2ascii
+          sty            $0655
+          stx            $0656
+          sta            $0657
+          rts

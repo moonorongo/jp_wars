@@ -116,6 +116,31 @@ checkTopP1
           
 
 
+
+
+
+hitJP1Animation
+          ldx            sprpoint2
+          cpx            #ptrJPRight
+          bne            @decxspr2 
+          
+          inc            sprx      
+          inc            sprx      
+          inc            sprx     
+          jmp            @exit     
+          
+@decxspr2          
+          dec            sprx      
+          dec            sprx      
+          dec            sprx     
+          
+@exit          
+          rts
+
+
+
+
+
 ; muestra los hits del jetpac 1
 updateJP1hits
           lda            JP1hits   
@@ -123,4 +148,4 @@ updateJP1hits
           sty            $053d
           stx            $053e
           sta            $053f
-
+          rts

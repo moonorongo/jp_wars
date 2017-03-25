@@ -16,6 +16,7 @@ detectCollision
           pla                      ; lo recupero del stack
           jsr            turnOffFire1
           inc            JP1hits   
+          jsr            hitJP2Animation
           jsr            updateJP1hits
           
           jmp            @skipSprDetect
@@ -28,8 +29,11 @@ detectCollision
           bne            @skipSprDetect
                 
         ; notifico colision JP1 & fire JP2
-          ldx            #02       
-          stx            $d020     
+          jsr            turnOffFire2
+          inc            JP2hits   
+          jsr            hitJP1Animation
+          jsr            updateJP2hits
+
 
 
 @skipSprDetect

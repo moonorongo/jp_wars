@@ -46,3 +46,11 @@ defm      copyScreen
           bne            @loop     
           endm
           
+
+
+; setSpriteColor sprcolor color
+;defm      setSpriteColor
+;          ldx            #/2
+;          stx            /1
+;          endm
+          
