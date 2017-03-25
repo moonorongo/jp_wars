@@ -58,13 +58,21 @@ animatePlayer1Fire
 
           
 @setStatus0          
+          jsr            turnOffFire1
+          
+@next          
+          rts
+          
+
+
+
+; turn off fire player 1
+turnOffFire1
           ldx            #$0       ; si no seteo flag en 0
           stx            fire1     
           
           lda            spractive  ; los sprites que esten activos
-          and            #%11111101 ; apago el sprite 2 (disparo P1)
-          sta            spractive  ; desactivamos el disparo
-
-@next          
+          and            #255 - FJP1 ; apago disparo P1
+          sta            spractive ; desactivamos el disparo
           rts
           

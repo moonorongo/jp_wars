@@ -27,6 +27,9 @@ sprx      = $d000
 spry      = $d001
 fire1     = $02                    ; zero page direccion sin usar
 gravityCounter = $04
+JP1       = $01
+JP1hits = $c000          
+          
 
           
 ; direcciones disparo
@@ -34,7 +37,7 @@ sprcolorFire  = $d028
 sprpointFire  = $07f9
 sprxFire      = $d002
 spryFire  = $d003
-          
+FJP1 = $02          
 ; dirFire esta en la direccion de memoria que me sobra del sprite de disparo
           
           
@@ -45,12 +48,12 @@ sprx2      = $d004
 spry2      = $d005
 fire2     = $2a                   ; zero page direccion sin usar
 gravityCounter2 = $04
-          
+JP2 = $04          
 
 ; direcciones disparo
 sprcolorFire2  = $d02a
 sprpointFire2  = $07fb
 sprxFire2      = $d006
 spryFire2  = $d007
+FJP2 = $08
 ; dirFire2 esta en la direccion de memoria que me sobra del jet pac right
-

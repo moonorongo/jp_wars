@@ -115,3 +115,12 @@ checkTopP1
           rts
           
 
+
+; muestra los hits del jetpac 1
+updateJP1hits
+          lda            JP1hits   
+          jsr            convert2ascii
+          sty            $053d
+          stx            $053e
+          sta            $053f
+
