@@ -1,27 +1,59 @@
 animatePlayer1
+                                   ; -------------- STATUS 0 -------
+          ldx            statusJP1 
+          cpx            #0
+          bne            @statusJP1_1
+                                   ; INIT SPRITE JP1
+          ldx            #50       ; posicionamos jetpac 1
+          stx            sprx
+          ldx            #0        ; que salga desde arriba de la pantalla...
+          stx            spry      
+          lda            #ptrJPRight      
+          sta            sprpoint  ; jet pac 1 mirando a la derecha
+                        
+          ldx            #1        
+          stx            statusJP1 
+          
+@statusJP1_1                       ; -------------- STATUS 1 -----------------
+                                   
+          ldx            statusJP1 
+          cpx            #1        
+          bne            @statusJP1_2
+          
+          inc            spry      
+          ldy            spry      
+          cpy            #50       
+          beq            @set_statusJP1_2
+          
+          jmp            @exit     
+          
+@set_statusJP1_2
+          ldx            #2
+          stx            statusJP1 
+          
+          
+@statusJP1_2                       ; -------------- STATUS 2 ----------------------------
+          ldx            statusJP1 
+          cpx            #2        
+          beq            @chkTop
+      
+          jmp            @statusJP_3
+          
+@jmpNext  jmp            @next
+@chkTop
           lda            joy2      
           cmp            #127      
-          beq            @next      
+          beq            @jmpNext  ; avoid +- 127 bytes jmp long
 
           lda            joy2      
           and            #1        ; up
-          bne            @chkDown   
+          bne            @chkLeft
           jsr            checkTopP1 ; solo sube si no llego al tope
           cpx            #1        
-          beq            @chkDown   
+          beq            @chkLeft
           
           dec            spry      
 
-@chkDown  lda            joy2      
-          and            #2        ; down
-          bne            @chkLeft   
-          
-          jsr            checkFloorP1 ; solo baja si no esta en el piso
-          cpx            #1      
-          beq            @chkLeft 
-          
-          inc            spry      
-  
 @chkLeft  lda            joy2      
           and            #4        ; left
           bne            @chkRight  
@@ -83,14 +115,61 @@ animatePlayer1
           ldx            #gravity
           stx            gravityCounter
           
+          jmp            @exit     
           
-@exit
+          
+@statusJP_3                       ; --------------- STATUS 3 -----------------
+             
+          ldx            gravityCounter
+          dex
+          stx            gravityCounter
+          cpx            #$0       
+          bne            @exit
+          ldx            #gravity
+          stx            gravityCounter
+
+          inc            fallCounter
+          lda            spry      
+          adc            fallCounter
+          sta            spry      
+          
+          ldx            sprpoint2   
+          cpx            #ptrJPRight  ; si esta mirando a la derecha
+          bne            @decxspr2    ; decrementa sprx
+         
+          lda            sprx       
+          adc            fallCounter  ; si mira a la izq incrementa
+          sta            sprx      
+          jmp            @chkFloor  
+          
+@decxspr2 
+          lda            sprx      
+          sbc            fallCounter
+          sta            sprx      
+          
+          
+@chkFloor
+          jsr            checkFloorP1
+          cpx            #1        
+          bne            @exit
+          
+          ldx            #0      
+          stx            fallCounter
+
+          ldx            #0        
+          stx            statusJP1 
+          
+
+@exit                             
           rts
 ; ------------- end of main animatePlayer1 ---------------------------                
 
 
+
+
 ; verifica posicion Y de P1, y retorna 1 en X si es el piso 
 checkFloorP1
+          clc
           ldx            spry      
           cpx            #floorPosition
           beq            @returnTrue    ; is equal
@@ -119,23 +198,23 @@ checkTopP1
 
 
 
-hitJP1Animation
-          ldx            sprpoint2
-          cpx            #ptrJPRight
-          bne            @decxspr2 
+;hitJP1Animation
+;          ldx            sprpoint2
+;          cpx            #ptrJPRight
+;          bne            @decxspr2 
           
-          inc            sprx      
-          inc            sprx      
-          inc            sprx     
-          jmp            @exit     
+;          inc            sprx      
+;          inc            sprx      
+;          inc            sprx     
+;          jmp            @exit     
           
-@decxspr2          
-          dec            sprx      
-          dec            sprx      
-          dec            sprx     
+;@decxspr2          
+;          dec            sprx      
+;          dec            sprx      
+;          dec            sprx     
           
-@exit          
-          rts
+;@exit          
+;          rts
 
 
 

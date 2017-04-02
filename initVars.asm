@@ -6,32 +6,31 @@ initVars
           sta            cfondo
 
 
-          lda            #$03      ; inicializo skiprt (conteo hasta hacer un wait retrace)
+          lda            #skiprtCant      ; inicializo skiprt (conteo hasta hacer un wait retrace)
           sta            skiprt
           
           ldx            #0        ; contador hits jetpac 1 y 2
           stx            JP1hits   
           stx            JP2hits   
           
-          ldx            #50      ; posicionamos jetpac 1
-          stx            sprx
-          ldx            #139       
-          stx            spry
+          ldx            #0        
+          stx            statusJP1 
+          stx            statusJP2
 
-          ldx            #150      ; posicionamos jetpac 2
-          stx            sprx2
-          ldx            #139       
-          stx            spry2
+          ldx            #0        ; utilizado en animacion de JP1 cuando muere
+          stx            fallCounter
+          stx            fallCounter2
           
-          ldx            #196      ; posicionamos disparo 1
-          stx            sprxFire
-          ldx            #139       
-          stx            spryFire
+                
+;          ldx            #196      ; posicionamos disparo 1
+;          stx            sprxFire
+;          ldx            #139       
+;          stx            spryFire
 
-          ldx            #196      ; posicionamos disparo 2
-          stx            sprxFire2
-          ldx            #139       
-          stx            spryFire2
+;          ldx            #196      ; posicionamos disparo 2
+;          stx            sprxFire2
+;          ldx            #139       
+;          stx            spryFire2
 
           lda            #$05      
           sta            spractive ;activamos el sprite 0 y 2
@@ -48,9 +47,6 @@ initVars
 
           lda            #$0a      
           sta            sprxpandX ; expandimos X el disparo 1 y 2.
-
-          lda            #ptrJPRight      
-          sta            sprpoint  ; jet pac 1 mirando a la derecha
 
           lda            #ptrJPLeft
           sta            sprpoint2  ; jet pac 1 mirando a la izquierda

@@ -1,28 +1,60 @@
 animatePlayer2
-          lda            joy1    
+                                   ; -------------- STATUS 0 -------
+          ldx            statusJP2 
+          cpx            #0
+          bne            @statusJP2_1
+                                   ; INIT SPRITE JP2
+          ldx            #233      ; posicionamos jetpac 2
+          stx            sprx2
+          ldx            #0        ; que salga desde arriba de la pantalla...
+          stx            spry2     
+          lda            #ptrJPLeft      
+          sta            sprpoint2  ; jet pac 2 mirando a la izquierda
+                        
+          ldx            #1        
+          stx            statusJP2 
+          
+@statusJP2_1                       ; -------------- STATUS 1 -----------------
+                                   
+          ldx            statusJP2 
+          cpx            #1        
+          bne            @statusJP2_2
+          
+          inc            spry2      
+          ldy            spry2      
+          cpy            #50       
+          beq            @set_statusJP2_2
+          
+          jmp            @exit     
+          
+@set_statusJP2_2
+          ldx            #2
+          stx            statusJP2
+          
+          
+@statusJP2_2                       ; -------------- STATUS 2 -----------------------
+          ldx            statusJP2
+          cpx            #2        
+          beq            @chkTop
+      
+          jmp            @statusJP2_3
+          
+@jmpNext  jmp            @next
+@chkTop
+          lda            joy1      
           cmp            #127      
-          beq            @next      
+          beq            @jmpNext  ; avoid +- 127 bytes jmp long
 
-          lda            joy1
+          lda            joy1      
           and            #1        ; up
-          bne            @chkDown   
+          bne            @chkLeft
           jsr            checkTopP2 ; solo sube si no llego al tope
           cpx            #1        
-          beq            @chkDown   
+          beq            @chkLeft
           
-          dec            spry2
+          dec            spry2      
 
-@chkDown  lda            joy1
-          and            #2        ; down
-          bne            @chkLeft   
-          
-          jsr            checkFloorP2 ; solo baja si no esta en el piso
-          cpx            #1      
-          beq            @chkLeft 
-          
-          inc            spry2
-  
-@chkLeft  lda            joy1
+@chkLeft  lda            joy1      
           and            #4        ; left
           bne            @chkRight  
           
@@ -31,10 +63,10 @@ animatePlayer2
           beq            @chkRight  
 
           lda            #ptrJPLeft      
-          sta            sprpoint2
-          dec            sprx2 
+          sta            sprpoint2  
+          dec            sprx2      
           
-@chkRight lda            joy1
+@chkRight lda            joy1      
           and            #8        ; right
           bne            @chkFire   
           
@@ -43,23 +75,22 @@ animatePlayer2
           beq            @chkFire  
 
           lda            #ptrJPRight      
-          sta            sprpoint2
-          inc            sprx2
+          sta            sprpoint2  
+          inc            sprx2      
 
-@chkFire  lda            joy1
+@chkFire  lda            joy1      
           and            #16       ; fire
-          bne            @next      
+          bne            @next
           
-          ldx            fire2
+          ldx            fire2     
           cpx            #0        
           bne            @next      ; checkeo si ya disparo
           
           lda            #1        ; setea status fire1 
-          sta            fire2
+          sta            fire2     
           
-
           lda            spractive  ; los sprites que esten activos
-          ora            #%00001000 ; sprite 4 (disparo P2)
+          ora            #%00001000 ; activo sprite 4 (disparo P2)
           sta            spractive  ;activamos el disparo
           
 ;         end check joystick          
@@ -73,8 +104,7 @@ animatePlayer2
           bne            @exit
           
           jsr            checkFloorP2
-          
-          cpx            #1      ; check floor (si result checkFloorP1 es 1 es el piso)
+          cpx            #1      
           beq            @skipGravity
           
          
@@ -84,14 +114,61 @@ animatePlayer2
           ldx            #gravity
           stx            gravityCounter2
           
+          jmp            @exit     
           
-@exit
+          
+@statusJP2_3                       ; --------------- STATUS 3 -----------------
+             
+          ldx            gravityCounter2
+          dex
+          stx            gravityCounter2
+          cpx            #$0       
+          bne            @exit
+          ldx            #gravity
+          stx            gravityCounter2
+
+          inc            fallCounter2
+          lda            spry2
+          adc            fallCounter2
+          sta            spry2
+          
+          ldx            sprpoint
+          cpx            #ptrJPRight  ; si esta mirando a la derecha
+          bne            @decxspr2    ; decrementa sprx
+         
+          lda            sprx2
+          adc            fallCounter2  ; si mira a la izq incrementa
+          sta            sprx2      
+          jmp            @chkFloor  
+          
+@decxspr2 
+          lda            sprx2     
+          sbc            fallCounter2
+          sta            sprx2      
+          
+          
+@chkFloor
+          jsr            checkFloorP2
+          cpx            #1        
+          bne            @exit
+          
+          ldx            #0      
+          stx            fallCounter2
+
+          ldx            #0        
+          stx            statusJP2
+          
+
+@exit                             
           rts
-; ------------- end of main animatePlayer1 ---------------------------                
+; ------------- end of main animatePlayer2 ---------------------------                
 
 
-; verifica posicion Y de P1, y retorna 1 en X si es el piso 
+
+
+; verifica posicion Y de P2, y retorna 1 en X si es el piso 
 checkFloorP2
+          clc
           ldx            spry2
           cpx            #floorPosition
           beq            @returnTrue    ; is equal
@@ -103,8 +180,9 @@ checkFloorP2
           rts
           
 
-; verifica posicion Y de P1, y retorna 1 en X si es el top
+; verifica posicion Y de P2, y retorna 1 en X si es el top
 checkTopP2
+          ;clc   ;verificar si la operacion me pone carry o me lo quita...
           ldx            spry2
           cpx            #topPosition
           beq            @returnTrue    ; is equal
@@ -115,29 +193,6 @@ checkTopP2
           ldx            #1        
           rts
           
-
-
-
-hitJP2Animation
-          ldx            sprpoint  
-          cpx            #ptrJPRight
-          bne            @decxspr2 
-          
-          inc            sprx2      
-          inc            sprx2      
-          inc            sprx2     
-          jmp            @exit     
-          
-@decxspr2          
-          dec            sprx2      
-          dec            sprx2      
-          dec            sprx2     
-          
-@exit          
-          rts
-          
-
-
 
 ; muestra los hits del jetpac 2
 updateJP2hits

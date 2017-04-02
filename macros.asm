@@ -2,7 +2,7 @@ defm      waitrt
           ldx            skiprt    
           cpx            #$00
           bne            @next     
-          ldx            #$03      
+          ldx            #skiprtCant
           stx            skiprt    
           
 @loop     ldx            raster

@@ -1,11 +1,13 @@
-gravity   = $05                    ; usado para setear la 'fuerza' de la gravedad, 1 = super fuerte, mayor = mas debil
+gravity   = $03                   ; usado para setear la 'fuerza' de la gravedad, 1 = super fuerte, mayor = mas debil
 floorPosition = 223
 topPosition = 52
           
 ptrJPLeft = $23
 ptrJPRight = $21
 ptrJPFire = $22
-skiprt    = $03
+          
+skiprt    = $03                    ; MEM POINTER  SKIPRT COUNTER
+skiprtCant = $02                   ; setea contador skiprt: menor valor = mas lento; mayor valor mas rapido          
 
 
 ; direcciones memoria
@@ -28,8 +30,9 @@ spry      = $d001
 fire1     = $02                    ; zero page direccion sin usar
 gravityCounter = $04
 JP1       = $01
-JP1hits = $c000          
-          
+JP1hits   = $c000
+statusJP1 = $c001       ; statusJP1 se utiliza en la maquina de estados de JP1
+fallCounter = $c002     ; utilizado para incrementar la caida, en statusJP1 = 3          
 
           
 ; direcciones disparo
@@ -49,7 +52,9 @@ spry2      = $d005
 fire2     = $2a                   ; zero page direccion sin usar
 gravityCounter2 = $04
 JP2 = $04          
-JP2hits = $c001
+JP2hits = $c100
+statusJP2 = $c101       
+fallCounter2 = $c102     ; utilizado para incrementar la caida, en statusJP1 = 3          
 
 ; direcciones disparo
 sprcolorFire2  = $d02a
