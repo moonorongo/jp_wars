@@ -10,9 +10,10 @@ main_loop
           jsr            animatePlayer2
           jsr            animatePlayer2Fire
           jsr            detectCollision
+          jsr            tickGenerator
           
-
           waitrt
+
           jmp            main_loop 
           
 exit

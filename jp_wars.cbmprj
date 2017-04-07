@@ -50,6 +50,7 @@
         <FileName>screen.asm</FileName>
         <FileName>screen_colour.asm</FileName>
         <FileName>byte2ascii.asm</FileName>
+        <FileName>tickGenerator.asm</FileName>
     </BuildList>
     <DetermineBuildOrder>1</DetermineBuildOrder>
     <PaddingByte>0</PaddingByte>
@@ -121,6 +122,17 @@
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
+            <Name>explosion.spt</Name>
+            <PrgName />
+            <FileType>7</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>False</FileOpen>
+        </SourceFile>
+        <SourceFile>
             <Name>initVars.asm</Name>
             <PrgName />
             <FileType>2</FileType>
@@ -151,7 +163,7 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>False</Topmost>
-            <FileOpen>False</FileOpen>
+            <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
             <Name>mainscreen.sdd</Name>
@@ -207,6 +219,17 @@
             <Bookmarks />
             <Topmost>False</Topmost>
             <FileOpen>False</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>tickGenerator.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
             <Name>vars.asm</Name>

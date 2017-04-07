@@ -21,17 +21,6 @@ initVars
           stx            fallCounter
           stx            fallCounter2
           
-                
-;          ldx            #196      ; posicionamos disparo 1
-;          stx            sprxFire
-;          ldx            #139       
-;          stx            spryFire
-
-;          ldx            #196      ; posicionamos disparo 2
-;          stx            sprxFire2
-;          ldx            #139       
-;          stx            spryFire2
-
           lda            #$05      
           sta            spractive ;activamos el sprite 0 y 2
           
@@ -67,6 +56,9 @@ initVars
           jsr            updateJP2hits
           
           
+          ldx            #0        
+          stx            internalCounter
+          stx            tick4
 
           rts
           

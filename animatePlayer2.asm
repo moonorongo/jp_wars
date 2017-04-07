@@ -127,23 +127,40 @@ animatePlayer2
           ldx            #gravity
           stx            gravityCounter2
 
+
+          lda            tick4
+          cmp            #0
+          beq            @skipIncFallCounter ; cada 4 frames va  a incrementar fallCounter
+
           inc            fallCounter2
+          
+@skipIncFallCounter          
           lda            spry2
           adc            fallCounter2
           sta            spry2
           
+          ldx            fallCounter2 
+          dex                           ; uso fallCounter como contador de frames (pero necesito que sea -1)
+          cpx            #4             ; hasta que llegue a 4 (animacion de 5 frames, no mas)
+          beq            @explodeEnded  ; si es igual, que no asigne ningun puntero mas...
+          
+          txa
+          adc            #ptrJPExplode
+          sta            sprpoint2
+          
+@explodeEnded          
           ldx            sprpoint
           cpx            #ptrJPRight  ; si esta mirando a la derecha
           bne            @decxspr2    ; decrementa sprx
          
           lda            sprx2
-          adc            fallCounter2  ; si mira a la izq incrementa
+          adc            #2 ; si mira a la izq incrementa
           sta            sprx2      
           jmp            @chkFloor  
           
 @decxspr2 
           lda            sprx2     
-          sbc            fallCounter2
+          sbc            #2
           sta            sprx2      
           
           

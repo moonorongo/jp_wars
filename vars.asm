@@ -5,10 +5,12 @@ topPosition = 52
 ptrJPLeft = $23
 ptrJPRight = $21
 ptrJPFire = $22
+ptrJPExplode = $24;                ; comienzo del vector de animacion de explosion
           
 skiprt    = $03                    ; MEM POINTER  SKIPRT COUNTER
 skiprtCant = $02                   ; setea contador skiprt: menor valor = mas lento; mayor valor mas rapido          
-
+internalCounter = $09              ; contador interno que voy a ir incrementando, de uso general.
+tick4 = $0A                        ; tick generado cada 4 frames
 
 ; direcciones memoria
 raster    = $d012

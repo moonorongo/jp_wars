@@ -128,23 +128,39 @@ animatePlayer1
           ldx            #gravity
           stx            gravityCounter
 
+          lda            tick4
+          cmp            #0
+          beq            @skipIncFallCounter ; cada 4 frames va  a incrementar fallCounter
+          
           inc            fallCounter
+          
+@skipIncFallCounter          
           lda            spry      
           adc            fallCounter
-          sta            spry      
+          sta            spry      ;cae JP1 vertiginosamente (cada vez mas)
           
+          ldx            fallCounter 
+          dex                           ; uso fallCounter como contador de frames (pero necesito que sea -1)
+          cpx            #4             ; hasta que llegue a 4 (animacion de 5 frames, no mas)
+          beq            @explodeEnded  ; si es igual, que no asigne ningun puntero mas...
+          
+          txa
+          adc            #ptrJPExplode
+          sta            sprpoint  
+          
+@explodeEnded          
           ldx            sprpoint2   
           cpx            #ptrJPRight  ; si esta mirando a la derecha
           bne            @decxspr2    ; decrementa sprx
          
           lda            sprx       
-          adc            fallCounter  ; si mira a la izq incrementa
+          adc            #2 ; si mira a la izq incrementa
           sta            sprx      
           jmp            @chkFloor  
           
 @decxspr2 
           lda            sprx      
-          sbc            fallCounter
+          sbc            #2 
           sta            sprx      
           
           
@@ -196,25 +212,6 @@ checkTopP1
 
 
 
-
-
-;hitJP1Animation
-;          ldx            sprpoint2
-;          cpx            #ptrJPRight
-;          bne            @decxspr2 
-          
-;          inc            sprx      
-;          inc            sprx      
-;          inc            sprx     
-;          jmp            @exit     
-          
-;@decxspr2          
-;          dec            sprx      
-;          dec            sprx      
-;          dec            sprx     
-          
-;@exit          
-;          rts
 
 
 
