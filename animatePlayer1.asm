@@ -153,15 +153,15 @@ animatePlayer1
           cpx            #ptrJPRight  ; si esta mirando a la derecha
           bne            @decxspr2    ; decrementa sprx
          
-          lda            sprx       
-          adc            #2 ; si mira a la izq incrementa
-          sta            sprx      
+          ldx            sprx       
+          inx                      ; si mira a la izq incrementa
+          stx            sprx      
           jmp            @chkFloor  
           
 @decxspr2 
-          lda            sprx      
-          sbc            #2 
-          sta            sprx      
+          ldx            sprx      
+          dex                      ; decrementa si mira a la derecha
+          stx            sprx      
           
           
 @chkFloor

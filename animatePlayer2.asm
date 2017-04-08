@@ -153,15 +153,15 @@ animatePlayer2
           cpx            #ptrJPRight  ; si esta mirando a la derecha
           bne            @decxspr2    ; decrementa sprx
          
-          lda            sprx2
-          adc            #2 ; si mira a la izq incrementa
-          sta            sprx2      
+          ldx            sprx2
+          inx                      ; si mira a la izq incrementa
+          stx            sprx2      
           jmp            @chkFloor  
           
 @decxspr2 
-          lda            sprx2     
-          sbc            #2
-          sta            sprx2      
+          ldx            sprx2     
+          dex                     ; si mira  a la derecha decrementa
+          stx            sprx2      
           
           
 @chkFloor
@@ -169,10 +169,10 @@ animatePlayer2
           cpx            #1        
           bne            @exit
           
-          ldx            #0      
+          ldx            #0             
           stx            fallCounter2
 
-          ldx            #0        
+          ldx            #0        ; si llego al piso cambia a status 0
           stx            statusJP2
           
 
