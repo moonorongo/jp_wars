@@ -58,8 +58,17 @@ initVars
           
           ldx            #0        
           stx            internalCounter
-          stx            tick4
+          stx            tick4     
+          stx            tick64
 
+          ldx            #$ff       
+          stx            JP1Jet    
+          stx            JP2Jet    
+          
+
+          ldx            $a0       ; inicializamos el generador de numeros aleatorios
+          stx            seed      ; con un valor de la variable TI (que esta en $a0)
+          
           rts
           
           

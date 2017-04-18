@@ -11,7 +11,9 @@ main_loop
           jsr            animatePlayer2Fire
           jsr            detectCollision
           jsr            tickGenerator
+          jsr            randomGenerator
           
+
           waitrt
 
           jmp            main_loop 

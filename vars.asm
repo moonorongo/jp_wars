@@ -11,6 +11,8 @@ skiprt    = $03                    ; MEM POINTER  SKIPRT COUNTER
 skiprtCant = $02                   ; setea contador skiprt: menor valor = mas lento; mayor valor mas rapido          
 internalCounter = $09              ; contador interno que voy a ir incrementando, de uso general.
 tick4 = $0A                        ; tick generado cada 4 frames
+tick64    = $0B                    ; tick generado cada 16 frames
+seed = $10                         ; numero 'aleatorio' generado
 
 ; direcciones memoria
 raster    = $d012
@@ -34,7 +36,8 @@ gravityCounter = $04
 JP1       = $01
 JP1hits   = $c000
 statusJP1 = $c001       ; statusJP1 se utiliza en la maquina de estados de JP1
-fallCounter = $c002     ; utilizado para incrementar la caida, en statusJP1 = 3          
+fallCounter = $c002     ; utilizado para incrementar la caida, cuando statusJP1 == 3          
+JP1Jet = $c003          ; cantidad de combustible del jet 1
 
           
 ; direcciones disparo
@@ -56,7 +59,8 @@ gravityCounter2 = $04
 JP2 = $04          
 JP2hits = $c100
 statusJP2 = $c101       
-fallCounter2 = $c102     ; utilizado para incrementar la caida, en statusJP1 = 3          
+fallCounter2 = $c102     ; utilizado para incrementar la caida, cuando statusJP2 == 3          
+JP2Jet = $c103          ; cantidad de combustible del jet 2
 
 ; direcciones disparo
 sprcolorFire2  = $d02a

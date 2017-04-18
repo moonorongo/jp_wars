@@ -35,16 +35,20 @@ animatePlayer2
 @statusJP2_2                       ; -------------- STATUS 2 -----------------------
           ldx            statusJP2
           cpx            #2        
-          beq            @chkTop
+          beq            @chkUp
       
           jmp            @statusJP2_3
           
 @jmpNext  jmp            @next
-@chkTop
+@chkUp
           lda            joy1      
           cmp            #127      
           beq            @jmpNext  ; avoid +- 127 bytes jmp long
 
+          ldx            JP2Jet    ; check si hay fuel 
+          cpx            #$0       
+          beq            @chkLeft  ; si no hay pasa de largo... adiooos
+          
           lda            joy1      
           and            #1        ; up
           bne            @chkLeft
@@ -52,7 +56,13 @@ animatePlayer2
           cpx            #1        
           beq            @chkLeft
           
-          dec            spry2      
+          dec            spry2     
+          
+          lda            tick64 
+          cmp            #0
+          beq            @chkLeft  ; cada 64 frames gasta combustible
+          dec            JP2Jet    ; gasta combustible
+
 
 @chkLeft  lda            joy1      
           and            #4        ; left
@@ -177,6 +187,7 @@ animatePlayer2
           
 
 @exit                             
+          jsr            updateJP2Jet
           rts
 ; ------------- end of main animatePlayer2 ---------------------------                
 
@@ -218,4 +229,13 @@ updateJP2hits
           sty            $0655
           stx            $0656
           sta            $0657
+          rts
+          
+; actualiza el medidor de JET de JP2
+updateJP2Jet
+          lda            JP2Jet   
+          jsr            convert2ascii
+          sty            $067d
+          stx            $067e
+          sta            $067f
           rts
