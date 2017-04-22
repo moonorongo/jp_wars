@@ -74,8 +74,17 @@ animatePlayer2
 
           lda            #ptrJPLeft      
           sta            sprpoint2  
-          dec            sprx2      
           
+          sec
+          lda            sprx2
+          sbc            #1        
+          bcc            @chkOvrL               ; si ocurre acarreo, llamo a checkOverflowP1
+          sta            sprx2                   ; si no, estamos en la de antes, actualizo posivion
+          jmp            @chkRight 
+          
+@chkOvrL  jsr            checkOverflowP2
+          sta            sprx2                   ; actualizo posicion, con el bit 8 actualizado
+
 @chkRight lda            joy1      
           and            #8        ; right
           bne            @chkFire   
@@ -86,7 +95,16 @@ animatePlayer2
 
           lda            #ptrJPRight      
           sta            sprpoint2  
-          inc            sprx2      
+
+          clc
+          lda            sprx2
+          adc            #1        
+          bcs            @chkOvrR               ; si ocurre acarreo, llamo a checkOverflowP1
+          sta            sprx2                   ; si no, estamos en la de antes, actualizo posicion
+          jmp            @chkFire 
+          
+@chkOvrR  jsr            checkOverflowP2
+          sta            sprx2                   ; actualizo posicion, con el bit 8 actualizado
 
 @chkFire  lda            joy1      
           and            #16       ; fire
@@ -191,6 +209,16 @@ animatePlayer2
           rts
 ; ------------- end of main animatePlayer2 ---------------------------                
 
+
+
+; verifica posicion X, setea bit 8 spr 0
+checkOverflowP2
+          tax                           ; guardo A en X (lo necesito despues)
+          lda            sprxBit8       
+          eor            #4             ; invierto el bit8 de posicion (sprite 2)
+          sta            sprxBit8       
+          txa                           ; restauro A
+          rts
 
 
 

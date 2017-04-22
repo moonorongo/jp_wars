@@ -71,10 +71,19 @@ animatePlayer1
           cpx            #1      
           beq            @chkRight  
 
-          lda            #ptrJPLeft      
+          lda            #ptrJPLeft   ; pone sprite mirando a la izquierda
           sta            sprpoint  
-          dec            sprx      
           
+          sec
+          lda            sprx      
+          sbc            #1        
+          bcc            @chkOvrL               ; si ocurre acarreo, llamo a checkOverflowP1
+          sta            sprx                   ; si no, estamos en la de antes, actualizo posivion
+          jmp            @chkRight 
+          
+@chkOvrL  jsr            checkOverflowP1
+          sta            sprx                   ; actualizo posicion, con el bit 8 actualizado
+
 @chkRight lda            joy2      
           and            #8        ; right
           bne            @chkFire   
@@ -84,8 +93,17 @@ animatePlayer1
           beq            @chkFire  
 
           lda            #ptrJPRight      
-          sta            sprpoint  
-          inc            sprx      
+          sta            sprpoint    ; pone sprite mirando a la derecha
+          
+          clc
+          lda            sprx                   
+          adc            #1        
+          bcs            @chkOvrR               ; si ocurre acarreo, llamo a checkOverflowP1
+          sta            sprx                   ; si no, estamos en la de antes, actualizo posivion
+          jmp            @chkFire 
+          
+@chkOvrR  jsr            checkOverflowP1
+          sta            sprx                   ; actualizo posicion, con el bit 8 actualizado
 
 @chkFire  lda            joy2      
           and            #16       ; fire
@@ -199,6 +217,18 @@ animatePlayer1
 ; ------------- end of main animatePlayer1 ---------------------------                
 
 
+
+; verifica posicion X, setea bit 8 spr 0
+checkOverflowP1
+          tax                           ; guardo A en X (lo necesito despues)
+          lda            sprxBit8       
+          eor            #1             ; invierto el bit8 de posicion
+          sta            sprxBit8       
+          txa                           ; restauro A
+          rts
+          
+          
+          
 
 
 ; verifica posicion Y de P1, y retorna 1 en X si es el piso 

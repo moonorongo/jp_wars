@@ -23,10 +23,12 @@ sprxpandX = $d01d
 scrPtr    = $0400
 scrColPtr = $d800
 joy2      = $dc00
-joy1      = $dc01 
+joy1      = $dc01
+sprxBit8  = $d010
+          
       
           
-; direcciones jetpac 1 -------------------------------------------------------
+; direcciones jetpac 1, sprite 0 -------------------------------------------------------
 sprcolor  = $d027
 sprpoint  = $07f8
 sprx      = $d000
@@ -40,7 +42,7 @@ fallCounter = $c002     ; utilizado para incrementar la caida, cuando statusJP1 
 JP1Jet = $c003          ; cantidad de combustible del jet 1
 
           
-; direcciones disparo
+; direcciones disparo, sprite 1
 sprcolorFire  = $d028
 sprpointFire  = $07f9
 sprxFire      = $d002
@@ -49,7 +51,7 @@ FJP1 = $02
 ; dirFire esta en la direccion de memoria que me sobra del sprite de disparo
           
           
-; direcciones jetpac 2 -------------------------------------------------------
+; direcciones jetpac 2, sprite 2 -------------------------------------------------------
 sprcolor2  = $d029
 sprpoint2  = $07fa
 sprx2      = $d004
@@ -62,7 +64,7 @@ statusJP2 = $c101
 fallCounter2 = $c102     ; utilizado para incrementar la caida, cuando statusJP2 == 3          
 JP2Jet = $c103          ; cantidad de combustible del jet 2
 
-; direcciones disparo
+; direcciones disparo, sprite 3
 sprcolorFire2  = $d02a
 sprpointFire2  = $07fb
 sprxFire2      = $d006
