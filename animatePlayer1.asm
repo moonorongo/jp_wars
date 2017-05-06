@@ -65,7 +65,7 @@ animatePlayer1
 
 @chkLeft  lda            joy2      
           and            #4        ; left
-          bne            @chkRight  
+          bne            @chkRight 
           
           jsr            checkFloorP1 ; solo se mueve si esta volando
           cpx            #1      
@@ -73,7 +73,7 @@ animatePlayer1
 
           lda            #ptrJPLeft   ; pone sprite mirando a la izquierda
           sta            sprpoint  
-          
+
           sec
           lda            sprx      
           sbc            #1        
@@ -178,18 +178,7 @@ animatePlayer1
 @explodeEnded          
           ldx            sprpoint2   
           cpx            #ptrJPRight  ; si esta mirando a la derecha
-          bne            @decxspr2    ; decrementa sprx
-         
-          ldx            sprx       
-          inx                      ; si mira a la izq incrementa
-          stx            sprx      
-          jmp            @chkFloor  
-          
-@decxspr2 
-          ldx            sprx      
-          dex                      ; decrementa si mira a la derecha
-          stx            sprx      
-          
+          bne            @chkFloor  
           
 @chkFloor
           jsr            checkFloorP1
@@ -203,8 +192,10 @@ animatePlayer1
           stx            statusJP1 
           
 
-@exit          
+@exit     
+          jsr            checkBordersJP1
           jsr            updateJP1Jet
+          
           
 ;          lda            tick4
 ;          cmp            #0        
@@ -217,6 +208,34 @@ animatePlayer1
 ; ------------- end of main animatePlayer1 ---------------------------                
 
 
+checkBordersJP1
+          lda            sprxBit8  
+          and            #1
+          cmp            #1        
+          beq            @bit8On
+
+          ldx            sprx
+          cpx            #0
+          bne            @return   
+          
+          setB8          1         ; setea bit 8 de sprite 0
+          ldx            #89
+          stx            sprx      
+          jmp            @return   
+          
+@bit8On
+          ldx            sprx
+          cpx            #90
+          bne            @return   
+          
+          unsetB8        1        
+          ldx            #1
+          stx            sprx      
+          
+@return
+          rts
+          
+
 
 ; verifica posicion X, setea bit 8 spr 0
 checkOverflowP1
@@ -224,7 +243,7 @@ checkOverflowP1
           lda            sprxBit8       
           eor            #1             ; invierto el bit8 de posicion
           sta            sprxBit8       
-          txa                           ; restauro A
+          txa                      ; restauro A
           rts
           
           
@@ -269,16 +288,16 @@ checkTopP1
 updateJP1hits
           lda            JP1hits   
           jsr            convert2ascii
-          sty            $053d
-          stx            $053e
-          sta            $053f
+          sty            $07C0
+          stx            $07C1
+          sta            $07C2
           rts
           
 ; actualiza el medidor de JET de JP1
 updateJP1Jet
           lda            JP1Jet   
           jsr            convert2ascii
-          sty            $0565
-          stx            $0566
-          sta            $0567
+          sty            $07C5
+          stx            $07C6
+          sta            $07C7
           rts

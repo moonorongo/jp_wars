@@ -13,6 +13,20 @@ defm      waitrt
           endm
 
 
+defm      unsetB8
+          lda            sprxBit8 
+          and            #255 - /1
+          sta            sprxBit8
+          endm
+
+
+defm      setB8
+          lda            sprxBit8 
+          ora            #/1
+          sta            sprxBit8
+          endm
+
+
 
 defm      copyScreen
           ldx            #$00      

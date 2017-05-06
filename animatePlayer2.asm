@@ -179,19 +179,8 @@ animatePlayer2
 @explodeEnded          
           ldx            sprpoint
           cpx            #ptrJPRight  ; si esta mirando a la derecha
-          bne            @decxspr2    ; decrementa sprx
+          bne            @chkFloor  
          
-          ldx            sprx2
-          inx                      ; si mira a la izq incrementa
-          stx            sprx2      
-          jmp            @chkFloor  
-          
-@decxspr2 
-          ldx            sprx2     
-          dex                     ; si mira  a la derecha decrementa
-          stx            sprx2      
-          
-          
 @chkFloor
           jsr            checkFloorP2
           cpx            #1        
@@ -205,9 +194,38 @@ animatePlayer2
           
 
 @exit                             
+          jsr            checkBordersJP2
           jsr            updateJP2Jet
           rts
 ; ------------- end of main animatePlayer2 ---------------------------                
+
+
+checkBordersJP2
+          lda            sprxBit8  
+          and            #4
+          cmp            #4        
+          beq            @bit8On
+
+          ldx            sprx2
+          cpx            #0
+          bne            @return   
+          
+          setB8          4         ; setea bit 8 de sprite 0
+          ldx            #89
+          stx            sprx2
+          jmp            @return   
+          
+@bit8On
+          ldx            sprx2
+          cpx            #90
+          bne            @return   
+          
+          unsetB8        4        
+          ldx            #1
+          stx            sprx2 
+          
+@return
+          rts
 
 
 
@@ -254,16 +272,16 @@ checkTopP2
 updateJP2hits
           lda            JP2hits   
           jsr            convert2ascii
-          sty            $0655
-          stx            $0656
-          sta            $0657
+          sty            $07E0
+          stx            $07E1
+          sta            $07E2
           rts
           
 ; actualiza el medidor de JET de JP2
 updateJP2Jet
           lda            JP2Jet   
           jsr            convert2ascii
-          sty            $067d
-          stx            $067e
-          sta            $067f
+          sty            $07E5
+          stx            $07E6
+          sta            $07E7
           rts

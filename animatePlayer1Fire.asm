@@ -49,7 +49,6 @@ animatePlayer1Fire
           cmp            #1        
           bne            @jp1Bit8Off_2
           
-                                   ;jsr            invertBit8
           lda            sprxBit8  
           ora            #%00000010
           sta            sprxBit8  

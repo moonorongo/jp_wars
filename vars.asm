@@ -1,5 +1,5 @@
 gravity   = $03                   ; usado para setear la 'fuerza' de la gravedad, 1 = super fuerte, mayor = mas debil
-floorPosition = 223
+floorPosition = 219
 topPosition = 52
           
 ptrJPLeft = $23
