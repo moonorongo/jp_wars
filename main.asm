@@ -5,13 +5,14 @@
 
           
 main_loop
+          jsr            randomGenerator
           jsr            animatePlayer1
           jsr            animatePlayer1Fire
           jsr            animatePlayer2
           jsr            animatePlayer2Fire
           jsr            detectCollision
           jsr            tickGenerator
-          jsr            randomGenerator
+          jsr            animateFuel
           
 
           waitrt

@@ -24,11 +24,15 @@ initVars
           lda            #$05      
           sta            spractive ;activamos el sprite 0 y 2
           
-          lda            #$0d
-          sta            sprcolor  ; jetpac 1 color verde claro
+          lda            #$05 
+          sta            sprcolor  ; jetpac 1 color verde
           
           lda            #$03
           sta            sprcolor2  ; jetpac 2 color cyan
+
+          lda            #$0d
+          sta            sprcolorfuel  ; color combustible
+
 
           lda            #$02
           sta            sprcolorFire  ; fire color red
@@ -42,7 +46,10 @@ initVars
           
           lda            #ptrJPFire      
           sta            sprpointFire  
-          sta            sprpointFire2  ; punteros de disparo
+          sta            sprpointFire2; punteros de disparo
+          
+          lda            #ptrFuel  
+          sta            sprpoint2 ; sprpointfuel
 
           lda            #$0       ; fire flag 
           sta            fire1     
@@ -61,14 +68,20 @@ initVars
           stx            tick4     
           stx            tick64
 
-          ldx            #$ff       
+          ldx            #$80       
           stx            JP1Jet    
           stx            JP2Jet    
           
 
-          ldx            $a0       ; inicializamos el generador de numeros aleatorios
-          stx            seed      ; con un valor de la variable TI (que esta en $a0)
+          ldx            $a0         ; inicializamos el generador de numeros aleatorios
+          stx            random      ; con un valor de la variable TI (que esta en $a0)
           
+          ldx            #0        
+          stx            statusFuel
+          
+          ldx            #delayEntreFuels
+          stx            fuelCounter
+
           rts
           
           

@@ -4,7 +4,11 @@ animatePlayer2
           cpx            #0
           bne            @statusJP2_1
                                    ; INIT SPRITE JP2
-          ldx            #233      ; posicionamos jetpac 2
+          lda            sprxBit8  
+          ora            #4        
+          sta            sprxBit8  
+          
+          ldx            #40      ; posicionamos jetpac 2
           stx            sprx2
           ldx            #0        ; que salga desde arriba de la pantalla...
           stx            spry2     

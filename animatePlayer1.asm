@@ -200,7 +200,7 @@ animatePlayer1
 ;          lda            tick4
 ;          cmp            #0        
 ;          beq            @exit2    
-;          ldx            seed      
+;          ldx            random      
 ;          stx            $d020
 
 ;@exit2

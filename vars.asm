@@ -5,14 +5,15 @@ topPosition = 52
 ptrJPLeft = $23
 ptrJPRight = $21
 ptrJPFire = $22
-ptrJPExplode = $24;                ; comienzo del vector de animacion de explosion
+ptrJPExplode = $24                    ;                ; comienzo del vector de animacion de explosion
+ptrFuel = $29          
           
 skiprt    = $03                    ; MEM POINTER  SKIPRT COUNTER
 skiprtCant = $02                   ; setea contador skiprt: menor valor = mas lento; mayor valor mas rapido          
 internalCounter = $09              ; contador interno que voy a ir incrementando, de uso general.
 tick4 = $0A                        ; tick generado cada 4 frames
-tick64    = $0B                    ; tick generado cada 16 frames
-seed = $10                         ; numero 'aleatorio' generado
+tick64    = $0B                    ; tick generado cada 64 frames
+random = $10                         ; numero 'aleatorio' generado
 
 ; direcciones memoria
 raster    = $d012
@@ -71,3 +72,26 @@ sprxFire2      = $d006
 spryFire2  = $d007
 FJP2 = $08
 ; dirFire2 esta en la direccion de memoria que me sobra del jet pac right
+
+
+; direcciones de fuel, sprite 4
+sprcolorfuel = $d02b
+sprpointfuel = $07fc
+sprxfuel = $d008          
+spryfuel = $d009
+FUEL = $10              ; cuanto tiene de combustible cada unidad de fuel
+statusFuel = $c0a0
+fuelCounter = $c0a1
+delayEntreFuels = 64    ;32 cuanto tiempo transcurre hasta que aparezca otro fuel
+          
+
+
+
+
+
+
+
+
+
+
+
