@@ -3,7 +3,7 @@ detectCollision
           lda            $d019     
           and            #$04      
           cmp            #$04      
-          bne            @skipSprDetect
+          bne            @jmpSkipSprDetect0
           
           lda            $d01e     
           pha                      ; lo guardo en el stack, por si lo tengo que checkear nuevamente
@@ -23,7 +23,7 @@ detectCollision
           jsr            updateJP1hits
           ldx            #3
           stx            statusJP2
-          
+@jmpSkipSprDetect0
           jmp            @skipSprDetect
 
 @checkJP1
@@ -37,7 +37,7 @@ detectCollision
           
           and            #JP1 + FJP2
           cmp            #JP1 + FJP2
-          bne            @skipSprDetect
+          bne            @jmpSkipSprDetect0
                 
                                    ; notifico colision JP1 & fire JP2
           jsr            turnOffFire2

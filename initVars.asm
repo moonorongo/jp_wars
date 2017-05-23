@@ -30,7 +30,7 @@ initVars
           lda            #$03
           sta            sprcolor2  ; jetpac 2 color cyan
 
-          lda            #$0d
+          lda            #$02
           sta            sprcolorfuel  ; color combustible
 
 
@@ -49,7 +49,7 @@ initVars
           sta            sprpointFire2; punteros de disparo
           
           lda            #ptrFuel  
-          sta            sprpoint2 ; sprpointfuel
+          sta            sprpointfuel
 
           lda            #$0       ; fire flag 
           sta            fire1     

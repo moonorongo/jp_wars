@@ -82,7 +82,7 @@ spryfuel = $d009
 FUEL = $10              ; cuanto tiene de combustible cada unidad de fuel
 statusFuel = $c0a0
 fuelCounter = $c0a1
-delayEntreFuels = 64    ;32 cuanto tiempo transcurre hasta que aparezca otro fuel
+delayEntreFuels = 32    ;$ff cuanto tiempo transcurre hasta que aparezca otro fuel
           
 
 
