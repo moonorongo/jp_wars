@@ -73,8 +73,8 @@ initVars
           stx            JP2Jet    
           
 
-          ldx            $a0         ; inicializamos el generador de numeros aleatorios
-          stx            random      ; con un valor de la variable TI (que esta en $a0)
+          ldx            $a2         ; inicializamos el generador de numeros aleatorios
+          stx            random      ; con un valor de la variable TI (que esta en $a2)
           
           ldx            #0        
           stx            statusFuel

@@ -5,7 +5,7 @@
 
           
 main_loop
-          jsr            randomGenerator
+          ;jsr            randomGenerator
           jsr            animatePlayer1
           jsr            animatePlayer1Fire
           jsr            animatePlayer2

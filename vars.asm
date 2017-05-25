@@ -14,6 +14,7 @@ internalCounter = $09              ; contador interno que voy a ir incrementando
 tick4 = $0A                        ; tick generado cada 4 frames
 tick64    = $0B                    ; tick generado cada 64 frames
 random = $10                         ; numero 'aleatorio' generado
+tempCollision = $12                ; guardo el estado de colision $d01e
 
 ; direcciones memoria
 raster    = $d012
@@ -26,7 +27,6 @@ scrColPtr = $d800
 joy2      = $dc00
 joy1      = $dc01
 sprxBit8  = $d010
-          
       
           
 ; direcciones jetpac 1, sprite 0 -------------------------------------------------------
@@ -63,7 +63,7 @@ JP2 = $04
 JP2hits = $c100
 statusJP2 = $c101       
 fallCounter2 = $c102     ; utilizado para incrementar la caida, cuando statusJP2 == 3          
-JP2Jet = $c103          ; cantidad de combustible del jet 2
+JP2Jet = $c103           ; cantidad de combustible del jet 2
 
 ; direcciones disparo, sprite 3
 sprcolorFire2  = $d02a
@@ -79,7 +79,8 @@ sprcolorfuel = $d02b
 sprpointfuel = $07fc
 sprxfuel = $d008          
 spryfuel = $d009
-FUEL = $10              ; cuanto tiene de combustible cada unidad de fuel
+FUEL      = $10                    ; 16, constante sprite 
+cantFUEL  = 10                    ; cantidad de combustible de cada fuel 
 statusFuel = $c0a0
 fuelCounter = $c0a1
 delayEntreFuels = 32    ;$ff cuanto tiempo transcurre hasta que aparezca otro fuel

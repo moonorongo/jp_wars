@@ -4,7 +4,7 @@ animateFuel
           cpx            #0        
           bne            @status1  
 
-          lda            tick4 ;tick64
+          lda            tick64 
           cmp            #0        
           bne            @decrementFuelCounter
           jmp            @exitFuel 
@@ -35,7 +35,8 @@ animateFuel
           and            #%11101111
           sta            sprxBit8  
           
-          clc                      
+          jsr            randomGenerator
+          clc
           lda            random    ; obtengo un nro del generador random
           adc            #48       ; lo centro un poco
           sta            sprxfuel  
@@ -57,7 +58,7 @@ animateFuel
           bne            @status3  
 
                                    ; incremento cada 4 frames
-          lda            tick4 ;tick64
+          lda            tick4
           cmp            #0        
           bne            @incrementFuel_y
           jmp            @exitFuel 
@@ -65,7 +66,7 @@ animateFuel
 @incrementFuel_y
           inc            spryfuel  
           ldy            spryfuel  
-          cpy            #floorPosition + 5
+          cpy            #floorPosition + 3
           beq            @setStatus3
           jmp            @exitFuel 
           
