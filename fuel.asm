@@ -27,7 +27,7 @@ animateFuel
           sty            spryfuel  
 
           lda            spractive ; activo sprite 4
-          ora            #16       
+          ora            #FUEL      
           sta            spractive 
           
                                    ; posicion x fuel (random entre 48 y 303)
@@ -89,7 +89,7 @@ animateFuel
           stx            fuelCounter
 
           lda            spractive ; apago sprite 4
-          and            #255 - 16       
+          and            #255 - FUEL       
           sta            spractive 
           
 

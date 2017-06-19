@@ -16,6 +16,12 @@ tick64    = $0B                    ; tick generado cada 64 frames
 random = $10                         ; numero 'aleatorio' generado
 tempCollision = $12                ; guardo el estado de colision $d01e
 
+; punteros utilizados por copyScreen
+lsbCopyAddress = $0e
+msbCopyAddress = $0f           
+
+
+
 ; direcciones memoria
 raster    = $d012
 cborde    = $d020

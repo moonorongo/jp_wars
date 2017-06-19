@@ -1,11 +1,24 @@
 *         = $1000
-        
-          copyScreen
+main
+;          jsr main_menu
+
+start_game
+          ldx            #<screen
+          stx            lsbCopyAddress
+          ldx            #>screen
+          stx            msbCopyAddress
+          jsr            copyToScreen
+
+          ldx            #<colour
+          stx            lsbCopyAddress
+          ldx            #>colour
+          stx            msbCopyAddress
+          jsr            copyToScreenColor
+          
           jsr initVars
 
           
 main_loop
-          ;jsr            randomGenerator
           jsr            animatePlayer1
           jsr            animatePlayer1Fire
           jsr            animatePlayer2
@@ -13,10 +26,8 @@ main_loop
           jsr            detectCollision
           jsr            tickGenerator
           jsr            animateFuel
-          
 
           waitrt
-
           jmp            main_loop 
           
 exit
