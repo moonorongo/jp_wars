@@ -4,6 +4,9 @@ animatePlayer1
           cpx            #0
           bne            @statusJP1_1
                                    ; INIT SPRITE JP1
+          
+          unsetB8        JP1         
+          
           ldx            #50       ; posicionamos jetpac 1
           stx            sprx
           ldx            #0        ; que salga desde arriba de la pantalla...
@@ -197,13 +200,6 @@ animatePlayer1
           jsr            updateJP1Jet
           
           
-;          lda            tick4
-;          cmp            #0        
-;          beq            @exit2    
-;          ldx            random      
-;          stx            $d020
-
-;@exit2
           rts
 ; ------------- end of main animatePlayer1 ---------------------------                
 
@@ -218,7 +214,7 @@ checkBordersJP1
           cpx            #0
           bne            @return   
           
-          setB8          1         ; setea bit 8 de sprite 0
+          setB8          JP1         ; setea bit 8 de sprite 0
           ldx            #89
           stx            sprx      
           jmp            @return   
@@ -228,7 +224,7 @@ checkBordersJP1
           cpx            #90
           bne            @return   
           
-          unsetB8        1        
+          unsetB8        JP1        
           ldx            #1
           stx            sprx      
           

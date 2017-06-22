@@ -1,6 +1,6 @@
 *         = $1000
 main
-;          jsr main_menu
+          jmp            main_menu 
 
 start_game
           ldx            #<screen
@@ -15,7 +15,7 @@ start_game
           stx            msbCopyAddress
           jsr            copyToScreenColor
           
-          jsr initVars
+          jsr            initVars  
 
           
 main_loop
@@ -26,9 +26,16 @@ main_loop
           jsr            detectCollision
           jsr            tickGenerator
           jsr            animateFuel
+          
+          jsr            checkEndGame ; devuelve en Y si termino la partida
+          cpy            #1        
+          beq            goto_mainmenu
 
           waitrt
           jmp            main_loop 
+
+goto_mainmenu
+          jmp            main_menu 
           
 exit
           rts                      ; BASIC

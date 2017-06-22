@@ -4,9 +4,7 @@ animatePlayer2
           cpx            #0
           bne            @statusJP2_1
                                    ; INIT SPRITE JP2
-          lda            sprxBit8  
-          ora            #4        
-          sta            sprxBit8  
+          setB8 JP2
           
           ldx            #40      ; posicionamos jetpac 2
           stx            sprx2
