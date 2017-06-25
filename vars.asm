@@ -14,7 +14,10 @@ internalCounter = $09              ; contador interno que voy a ir incrementando
 tick4 = $0A                        ; tick generado cada 4 frames
 tick64    = $0B                    ; tick generado cada 64 frames
 random = $10                         ; numero 'aleatorio' generado
-tempCollision = $12                ; guardo el estado de colision $d01e
+tempCollision = $12                    ; guardo el estado de colision $d01e
+JPBlackColor = $2
+TiempoInmune = $ff   ; 255 refrescos de inmunidad
+          
 
 ; punteros utilizados por copyScreen
 lsbCopyAddress = $0e
@@ -46,7 +49,10 @@ JP1       = $01
 JP1hits   = $c000
 statusJP1 = $c001       ; statusJP1 se utiliza en la maquina de estados de JP1
 fallCounter = $c002     ; utilizado para incrementar la caida, cuando statusJP1 == 3          
-JP1Jet = $c003          ; cantidad de combustible del jet 1
+JP1Jet    = $c003                  ; cantidad de combustible del jet 1
+JP1Color  = $05                    ; color verde
+JP1Inmunidad = $C004                  ; tiempo de impunidad JP1      
+          
 
           
 ; direcciones disparo, sprite 1
@@ -70,6 +76,8 @@ JP2hits = $c100
 statusJP2 = $c101       
 fallCounter2 = $c102     ; utilizado para incrementar la caida, cuando statusJP2 == 3          
 JP2Jet = $c103           ; cantidad de combustible del jet 2
+JP2Color  = $03          ; jetpac 2 color cyan
+JP2Inmunidad = $C104                  ; tiempo de impunidad JP2
 
 ; direcciones disparo, sprite 3
 sprcolorFire2  = $d02a

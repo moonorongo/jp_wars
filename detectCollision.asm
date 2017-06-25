@@ -12,6 +12,10 @@ detectCollision
           ldx            statusJP2 ; solo chequeo colision si el status es 2 (normal)
           cpx            #2        
           bne            @checkJP1 
+
+          ldx            JP2Inmunidad ; chequeo que no este con la inmunidad de entrada
+          cpx            #0        
+          bne            @checkJP1
           
           and            #JP2 + FJP1
           cmp            #JP2 + FJP1
@@ -35,7 +39,11 @@ detectCollision
           ldx            statusJP1 ; solo chequeo colision si el status es 2 (normal)
           cpx            #2        
           bne            @checkJP1Fuel
-          
+
+          ldx            JP1Inmunidad ; chequeo que no este con la inmunidad de entrada
+          cpx            #0        
+          bne            @checkJP1Fuel
+
           and            #JP1 + FJP2
           cmp            #JP1 + FJP2
           bne            @checkJP1Fuel

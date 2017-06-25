@@ -14,6 +14,12 @@ animatePlayer1
           lda            #ptrJPRight      
           sta            sprpoint  ; jet pac 1 mirando a la derecha
                         
+          lda            #JP1Color
+          sta            sprcolor  ; jetpac 1 color verde
+          
+          lda            #TiempoInmune
+          sta            JP1Inmunidad
+
           ldx            #1        
           stx            statusJP1 
           
@@ -44,6 +50,32 @@ animatePlayer1
           
 @jmpNext  jmp            @next
 @chkUp
+          lda            JP1Inmunidad
+          cmp            #0        
+          beq            @doNotDecrement
+          
+          dec            JP1Inmunidad
+          and            #8
+          beq            @setBlackColor
+          
+          ldx            #JP1Color 
+          stx            sprcolor  
+          jmp            @skipRestoreColor
+          
+@setBlackColor      
+          ldx            #JPBlackColor
+          stx            sprcolor
+          jmp            @skipRestoreColor
+          
+@doNotDecrement
+          lda            sprcolor  
+          and            #15       
+          cmp            #JPBlackColor
+          bne            @skipRestoreColor
+          lda            #JP1Color 
+          sta            sprcolor  
+          
+@skipRestoreColor
           lda            joy2      
           cmp            #127      
           beq            @jmpNext  ; avoid +- 127 bytes jmp long
@@ -59,7 +91,7 @@ animatePlayer1
           cpx            #1        
           beq            @chkLeft
           
-          dec            spry      
+          dec            spry
           
           lda            tick64
           cmp            #0

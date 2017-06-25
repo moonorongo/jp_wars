@@ -24,11 +24,13 @@ initVars
           lda            #$05      
           sta            spractive ;activamos el sprite 0 y 2
           
-          lda            #$05 
-          sta            sprcolor  ; jetpac 1 color verde
           
-          lda            #$03
+          lda            #JP2Color
           sta            sprcolor2  ; jetpac 2 color cyan
+
+          lda            #TiempoInmune
+          sta            JP2Inmunidad
+
 
           lda            #$02
           sta            sprcolorfuel  ; color combustible

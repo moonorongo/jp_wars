@@ -11,7 +11,13 @@ animatePlayer2
           ldx            #0        ; que salga desde arriba de la pantalla...
           stx            spry2     
           lda            #ptrJPLeft      
-          sta            sprpoint2  ; jet pac 2 mirando a la izquierda
+          sta            sprpoint2 ; jet pac 2 mirando a la izquierda
+          
+          lda            #JP2Color
+          sta            sprcolor2  ; jetpac 2 color cyan
+          
+          lda            #TiempoInmune
+          sta            JP2Inmunidad
                         
           ldx            #1        
           stx            statusJP2 
@@ -43,6 +49,32 @@ animatePlayer2
           
 @jmpNext  jmp            @next
 @chkUp
+          lda            JP2Inmunidad
+          cmp            #0        
+          beq            @doNotDecrement
+          
+          dec            JP2Inmunidad
+          and            #8
+          beq            @setBlackColor
+          
+          ldx            #JP2Color 
+          stx            sprcolor2
+          jmp            @skipRestoreColor
+          
+@setBlackColor      
+          ldx            #JPBlackColor
+          stx            sprcolor2
+          jmp            @skipRestoreColor
+          
+@doNotDecrement
+          lda            sprcolor2  
+          and            #15       
+          cmp            #JPBlackColor
+          bne            @skipRestoreColor
+          lda            #JP2Color 
+          sta            sprcolor2
+          
+@skipRestoreColor
           lda            joy1      
           cmp            #127      
           beq            @jmpNext  ; avoid +- 127 bytes jmp long
