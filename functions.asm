@@ -7,9 +7,13 @@
 ;                stx            msbCopyAddress
 ;                jsr            copyToScreen
 
+; punteros utilizados por copyScreen
+; lsbCopyAddress = $0e
+; msbCopyAddress = $0f           
+; scrPtr    = $0400
 
 copyToScreen
-; 0- 255 
+; posiciones de pantalla 0 - 255 
           ldy            #$00
 @loop
           lda            (lsbCopyAddress),y
@@ -19,7 +23,7 @@ copyToScreen
           cpy            #$00       
           bne            @loop     
           
-; 256 - 512
+; posiciones de pantalla 256 - 512
           ldy            #$00
           inc            msbCopyAddress
 @loop2
@@ -30,7 +34,7 @@ copyToScreen
           cpy            #$00       
           bne            @loop2
 
-; 513 - 768
+; posiciones de pantalla 513 - 768
           ldy            #$00
           inc            msbCopyAddress
 @loop3
