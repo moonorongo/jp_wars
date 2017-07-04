@@ -34,7 +34,7 @@ main_menu
           ldx            raster    
 @r_line   cpx            #$0
           bne            @loop_raster
-          
+                                   ; esto es una verdadera basura - esperemos mejorar
           inc            @r_line+1 ; incrementa posicion de comparacion
           inc            @r_line+1 ; incrementa posicion de comparacion
           inc            @r_line+1 ; incrementa posicion de comparacion
