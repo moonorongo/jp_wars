@@ -1,28 +1,25 @@
-defm      waitrt
+.macro waitrt() {
           ldx            skiprt    
           cpx            #$00
-          bne            @next     
+          bne            next     
           ldx            #skiprtCant
           stx            skiprt    
           
-@loop     ldx            raster
+loop:     ldx            raster
           cpx            #$0       
-          bne            @loop     
-@next     
+          bne            loop     
+next:     
           dec            skiprt    
-          endm
+}
 
-
-defm      unsetB8
+.macro unsetB8(spriteNumber) {
           lda            sprxBit8 
-          and            #255 - /1
+          and            #255 - spriteNumber
           sta            sprxBit8
-          endm
+}
 
-
-defm      setB8
+.macro setB8(spriteNumber) {
           lda            sprxBit8 
-          ora            #/1
+          ora            #spriteNumber
           sta            sprxBit8
-          endm
-
+}

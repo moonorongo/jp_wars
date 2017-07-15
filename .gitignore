@@ -1,3 +1,6 @@
 bak
 *.tmp
 *.prg
+*.sym
+.directory
+KickAss.cfg

@@ -1,11 +1,12 @@
-main_menu
+main_menu:
+{
           ldx            #0
           stx            cborde
           ldx            #1
           stx            cfondo  
 
           lda            #0      
-          sta            spractive ;desactivamos todos los sprites
+          sta            spractive //desactivamos todos los sprites
   
 
           ldx            #<menu_screen
@@ -22,51 +23,50 @@ main_menu
           
           ldy #0
 
-@loop 
-          ldx            $CB       ; current key pressed, $40 no key
-          cpx            #$04      ; if F1
-          beq            @go_main  
+loop:
+          ldx            $CB       // current key pressed, $40 no key
+          cpx            #$04      // if F1
+          beq            go_main  
 
           lda            color_ramp,y
 
 
-@loop_raster
+loop_raster:
           ldx            raster    
-@r_line   cpx            #$0
-          bne            @loop_raster
-                                   ; esto es una verdadera basura - esperemos mejorar
-          inc            @r_line+1 ; incrementa posicion de comparacion
-          inc            @r_line+1 ; incrementa posicion de comparacion
-          inc            @r_line+1 ; incrementa posicion de comparacion
-          inc            @r_line+1 ; incrementa posicion de comparacion
-          inc            @r_line+1 ; incrementa posicion de comparacion
-          inc            @r_line+1 ; incrementa posicion de comparacion
-          inc            @r_line+1 ; incrementa posicion de comparacion
-          inc            @r_line+1 ; incrementa posicion de comparacion
-          inc            @r_line+1 ; incrementa posicion de comparacion
-          inc            @r_line+1 ; incrementa posicion de comparacion
-          inc            @r_line+1 ; incrementa posicion de comparacion
-          inc            @r_line+1 ; incrementa posicion de comparacion
-          sta            $d021     
+r_line:   cpx            #$0
+          bne            loop_raster
+                                   // esto es una verdadera basura - esperemos mejorar
+          inc            r_line+1 // incrementa posicion de comparacion
+          inc            r_line+1 // incrementa posicion de comparacion
+          inc            r_line+1 // incrementa posicion de comparacion
+          inc            r_line+1 // incrementa posicion de comparacion
+          inc            r_line+1 // incrementa posicion de comparacion
+          inc            r_line+1 // incrementa posicion de comparacion
+          inc            r_line+1 // incrementa posicion de comparacion
+          inc            r_line+1 // incrementa posicion de comparacion
+          inc            r_line+1 // incrementa posicion de comparacion
+          inc            r_line+1 // incrementa posicion de comparacion
+          inc            r_line+1 // incrementa posicion de comparacion
+          inc            r_line+1 // incrementa posicion de comparacion
+          sta            cfondo
           
           iny
           cpy            #7        
-          bne            @skip     
+          bne            skip     
           ldy            #0        
           
-@skip          
+skip:          
+          jmp            loop     
 
-          jmp            @loop     
-
-@go_main
+go_main:
           jmp            start_game
-          
+}          
 
 
         
   
 
-color_ramp
-          BYTE 7, 10, 8, 2, 9, 2, 8, 10
+color_ramp:
+          .byte 7, 10, 8, 2, 9, 2, 8, 10
           
 

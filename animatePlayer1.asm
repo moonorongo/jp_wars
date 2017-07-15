@@ -1,331 +1,237 @@
-animatePlayer1
-                                   ; -------------- STATUS 0 -------
+{
+                                       // -------------- STATUS 0 -------
           ldx            statusJP1 
           cpx            #0
-          bne            @statusJP1_1
-                                   ; INIT SPRITE JP1
+          bne            statusJP1_1
+                                       // INIT SPRITE JP1
           
-          unsetB8        JP1         
+          unsetB8(JP1)
           
-          ldx            #50       ; posicionamos jetpac 1
+          ldx            #50           // posicionamos jetpac 1
           stx            sprx
-          ldx            #0        ; que salga desde arriba de la pantalla...
+          ldx            #0            // que salga desde arriba de la pantalla...
           stx            spry      
           lda            #ptrJPRight      
-          sta            sprpoint  ; jet pac 1 mirando a la derecha
+          sta            sprpoint      // jet pac 1 mirando a la derecha
                         
           lda            #JP1Color
-          sta            sprcolor  ; jetpac 1 color verde
+          sta            sprcolor      // jetpac 1 color verde
           
           lda            #TiempoInmune
           sta            JP1Inmunidad
-
+          
           ldx            #1        
           stx            statusJP1 
           
-@statusJP1_1                       ; -------------- STATUS 1 -----------------
+statusJP1_1:                           // -------------- STATUS 1 -----------------
                                    
           ldx            statusJP1 
           cpx            #1        
-          bne            @statusJP1_2
+          bne            statusJP1_2
           
           inc            spry      
           ldy            spry      
           cpy            #50       
-          beq            @set_statusJP1_2
+          beq            set_statusJP1_2
           
-          jmp            @exit     
+          jmp            exit     
           
-@set_statusJP1_2
+set_statusJP1_2:
           ldx            #2
           stx            statusJP1 
           
           
-@statusJP1_2                       ; -------------- STATUS 2 ----------------------------
+statusJP1_2:                           // -------------- STATUS 2 ----------------------------
           ldx            statusJP1 
           cpx            #2        
-          beq            @chkUp
+          beq            chkUp
       
-          jmp            @statusJP_3
+          jmp            statusJP_3
           
-@jmpNext  jmp            @next
-@chkUp
+jmpNext:  jmp            next
+chkUp:
           lda            JP1Inmunidad
           cmp            #0        
-          beq            @doNotDecrement
+          beq            doNotDecrement
           
           dec            JP1Inmunidad
           and            #8
-          beq            @setBlackColor
+          beq            setBlackColor
           
           ldx            #JP1Color 
           stx            sprcolor  
-          jmp            @skipRestoreColor
+          jmp            skipRestoreColor
           
-@setBlackColor      
+setBlackColor:
           ldx            #JPBlackColor
           stx            sprcolor
-          jmp            @skipRestoreColor
+          jmp            skipRestoreColor
           
-@doNotDecrement
+doNotDecrement:
           lda            sprcolor  
           and            #15       
           cmp            #JPBlackColor
-          bne            @skipRestoreColor
+          bne            skipRestoreColor
           lda            #JP1Color 
           sta            sprcolor  
           
-@skipRestoreColor
+skipRestoreColor:
           lda            joy2      
           cmp            #127      
-          beq            @jmpNext  ; avoid +- 127 bytes jmp long
+          beq            jmpNext      // avoid +- 127 bytes jmp long
 
-          ldx            JP1Jet    ; check si hay fuel 
+          ldx            JP1Jet        // check si hay fuel 
           cpx            #$0       
-          beq            @chkLeft  ; si no hay pasa de largo... adiooos
+          beq            chkLeft      // si no hay pasa de largo... adiooos
 
           lda            joy2      
-          and            #1        ; up
-          bne            @chkLeft
-          jsr            checkTopP1 ; solo sube si no llego al tope
+          and            #1            // up
+          bne            chkLeft
+          jsr            checkTopP1    // solo sube si no llego al tope
           cpx            #1        
-          beq            @chkLeft
+          beq            chkLeft
           
           dec            spry
           
           lda            tick64
           cmp            #0
-          beq            @chkLeft  ; cada 64 frames gasta combustible
-          dec            JP1Jet    ; gasta combustible
+          bne            chkLeft      // cada 64 frames gasta combustible
+          dec            JP1Jet        // gasta combustible
 
-@chkLeft  lda            joy2      
-          and            #4        ; left
-          bne            @chkRight 
+chkLeft:  lda            joy2      
+          and            #4            // left
+          bne            chkRight 
           
-          jsr            checkFloorP1 ; solo se mueve si esta volando
+          jsr            checkFloorP1  // solo se mueve si esta volando
           cpx            #1      
-          beq            @chkRight  
+          beq            chkRight  
 
-          lda            #ptrJPLeft   ; pone sprite mirando a la izquierda
+          lda            #ptrJPLeft    // pone sprite mirando a la izquierda
           sta            sprpoint  
 
           sec
           lda            sprx      
           sbc            #1        
-          bcc            @chkOvrL               ; si ocurre acarreo, llamo a checkOverflowP1
-          sta            sprx                   ; si no, estamos en la de antes, actualizo posivion
-          jmp            @chkRight 
+          bcc            chkOvrL      // si ocurre acarreo, llamo a checkOverflowP1
+          sta            sprx          // si no, estamos en la de antes, actualizo posivion
+          jmp            chkRight 
           
-@chkOvrL  jsr            checkOverflowP1
-          sta            sprx                   ; actualizo posicion, con el bit 8 actualizado
+chkOvrL:  jsr            checkOverflowP1
+          sta            sprx          // actualizo posicion, con el bit 8 actualizado
 
-@chkRight lda            joy2      
-          and            #8        ; right
-          bne            @chkFire   
+chkRight: lda            joy2      
+          and            #8            // right
+          bne            chkFire   
           
-          jsr            checkFloorP1 ; solo se mueve si esta volando
+          jsr            checkFloorP1  // solo se mueve si esta volando
           cpx            #1      
-          beq            @chkFire  
+          beq            chkFire  
 
           lda            #ptrJPRight      
-          sta            sprpoint    ; pone sprite mirando a la derecha
+          sta            sprpoint      // pone sprite mirando a la derecha
           
           clc
           lda            sprx                   
           adc            #1        
-          bcs            @chkOvrR               ; si ocurre acarreo, llamo a checkOverflowP1
-          sta            sprx                   ; si no, estamos en la de antes, actualizo posivion
-          jmp            @chkFire 
+          bcs            chkOvrR      // si ocurre acarreo, llamo a checkOverflowP1
+          sta            sprx          // si no, estamos en la de antes, actualizo posivion
+          jmp            chkFire 
           
-@chkOvrR  jsr            checkOverflowP1
-          sta            sprx                   ; actualizo posicion, con el bit 8 actualizado
+chkOvrR:  jsr            checkOverflowP1
+          sta            sprx          // actualizo posicion, con el bit 8 actualizado
 
-@chkFire  lda            joy2      
-          and            #16       ; fire
-          bne            @next
+chkFire:  lda            joy2      
+          and            #16           // fire
+          bne            next
           
           ldx            fire1     
           cpx            #0        
-          bne            @next      ; checkeo si ya disparo
+          bne            next         // checkeo si ya disparo
           
-          lda            #1        ; setea status fire1 
+          lda            #1            // setea status fire1 
           sta            fire1     
           
-          lda            spractive  ; los sprites que esten activos
-          ora            #%00000010 ; activo sprite 2 (disparo P1)
-          sta            spractive  ;activamos el disparo
+          lda            spractive     // los sprites que esten activos
+          ora            #%00000010    // activo sprite 2 (disparo P1)
+          sta            spractive     // activamos el disparo
           
-;         end check joystick          
+                                       // end check joystick          
           
 
-@next
+next:
           ldx            gravityCounter
           dex
           stx            gravityCounter
           cpx            #$0       
-          bne            @exit
+          bne            exit
           
           jsr            checkFloorP1
           
-          cpx            #1      ; check floor (si result checkFloorP1 es 1 es el piso)
-          beq            @skipGravity
+          cpx            #1            // check floor (si result checkFloorP1 es 1 es el piso)
+          beq            skipGravity
           
          
-          inc            spry      ; gravity :P 
+          inc            spry          // gravity :P 
 
-@skipGravity
+skipGravity:
           ldx            #gravity
           stx            gravityCounter
           
-          jmp            @exit     
+          jmp            exit     
           
           
-@statusJP_3                       ; --------------- STATUS 3 -----------------
+statusJP_3:                            // --------------- STATUS 3 -----------------
              
           ldx            gravityCounter
           dex
           stx            gravityCounter
           cpx            #$0       
-          bne            @exit
+          bne            exit
           ldx            #gravity
           stx            gravityCounter
 
           lda            tick4
           cmp            #0
-          beq            @skipIncFallCounter ; cada 4 frames va  a incrementar fallCounter
-          
+          bne            skipIncFallCounter // cada 4 frames va  a incrementar fallCounter
+
+          lda #0
           inc            fallCounter
           
-@skipIncFallCounter          
+skipIncFallCounter:
           lda            spry      
           adc            fallCounter
-          sta            spry      ;cae JP1 vertiginosamente (cada vez mas)
+          sta            spry          // cae JP1 vertiginosamente (cada vez mas)
           
           ldx            fallCounter 
-          dex                           ; uso fallCounter como contador de frames (pero necesito que sea -1)
-          cpx            #4             ; hasta que llegue a 4 (animacion de 5 frames, no mas)
-          beq            @explodeEnded  ; si es igual, que no asigne ningun puntero mas...
+          dex                          // uso fallCounter como contador de frames (pero necesito que sea -1)
+          cpx            #4            // hasta que llegue a 4 (animacion de 5 frames, no mas)
+          beq            explodeEnded // si es igual, que no asigne ningun puntero mas...
           
           txa
           adc            #ptrJPExplode
           sta            sprpoint  
           
-@explodeEnded          
+explodeEnded:          
           ldx            sprpoint2   
-          cpx            #ptrJPRight  ; si esta mirando a la derecha
-          bne            @chkFloor  
+          cpx            #ptrJPRight   // si esta mirando a la derecha
+          bne            chkFloor  
           
-@chkFloor
+chkFloor:
           jsr            checkFloorP1
           cpx            #1        
-          bne            @exit
+          bne            exit
           
           ldx            #0      
           stx            fallCounter
 
           ldx            #0        
           stx            statusJP1 
-          
 
-@exit     
+exit:
           jsr            checkBordersJP1
           jsr            updateJP1Jet
           
-          
-          rts
-; ------------- end of main animatePlayer1 ---------------------------                
+}          
+// ------------- end of main animatePlayer1 ---------------------------                
 
 
-checkBordersJP1
-          lda            sprxBit8  
-          and            #1
-          cmp            #1        
-          beq            @bit8On
-
-          ldx            sprx
-          cpx            #0
-          bne            @return   
-          
-          setB8          JP1         ; setea bit 8 de sprite 0
-          ldx            #89
-          stx            sprx      
-          jmp            @return   
-          
-@bit8On
-          ldx            sprx
-          cpx            #90
-          bne            @return   
-          
-          unsetB8        JP1        
-          ldx            #1
-          stx            sprx      
-          
-@return
-          rts
-          
-
-
-; verifica posicion X, setea bit 8 spr 0
-checkOverflowP1
-          tax                           ; guardo A en X (lo necesito despues)
-          lda            sprxBit8       
-          eor            #1             ; invierto el bit8 de posicion
-          sta            sprxBit8       
-          txa                      ; restauro A
-          rts
-          
-          
-          
-
-
-; verifica posicion Y de P1, y retorna 1 en X si es el piso 
-checkFloorP1
-          clc
-          ldx            spry      
-          cpx            #floorPosition
-          beq            @returnTrue    ; is equal
-          bcs            @returnTrue    ; or greater ;) 
-          ldx            #0        
-          rts
-@returnTrue
-          ldx            #1        
-          rts
-          
-
-; verifica posicion Y de P1, y retorna 1 en X si es el top
-checkTopP1
-          ldx            spry      
-          cpx            #topPosition
-          beq            @returnTrue    ; is equal
-          ;bcs            @returnTrue    ; or greater ;) 
-          ldx            #0        
-          rts
-@returnTrue
-          ldx            #1        
-          rts
-          
-
-
-
-
-
-
-
-
-; muestra los hits del jetpac 1
-updateJP1hits
-          lda            JP1hits   
-          jsr            convert2ascii
-          sty            $07C0
-          stx            $07C1
-          sta            $07C2
-          rts
-          
-; actualiza el medidor de JET de JP1
-updateJP1Jet
-          lda            JP1Jet   
-          jsr            convert2ascii
-          sty            $07C5
-          stx            $07C6
-          sta            $07C7
-          rts
