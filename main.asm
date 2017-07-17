@@ -10,7 +10,7 @@ BasicUpstart2(main)
 #import "vars.asm"
 #import "macros.asm"
 
-          *         = $1000 "Main Program"
+            * = $1000 "Main Program"
 main:
             jmp            main_menu
 
@@ -33,22 +33,15 @@ start_game:
 main_loop:
 #import "animatePlayer1.asm"
 #import "animatePlayer1Fire.asm"
-
-/* quitar los rts en todo lo que este en el loop... por ejm en animatePlayer1Fire hay 2, uno al ppio y el otro al fin */
-
-            jsr            animatePlayer2
-            jsr            animatePlayer2Fire
-            jsr            detectCollision
-            jsr            tickGenerator
-            
-            
-            
-            jsr            animateFuel
+#import "animatePlayer2.asm"
+#import "animatePlayer2Fire.asm"
+#import "detectCollision.asm"
+#import "tickGenerator.asm"
+#import "fuel.asm"
           
             jsr            checkEndGame         // devuelve en Y si termino la partida
             cpy            #1        
             beq            goto_mainmenu
-
 
             waitrt()
             jmp            main_loop 
@@ -63,17 +56,19 @@ exit:
     Subrutinas
 */
 #import "functions_p1.asm"          
-//#import "functions_p2.asm"          
+#import "functions_p2.asm"          
+#import "functions.asm"
+#import "initVars.asm"
 
-#import "animatePlayer2.asm"
-#import "animatePlayer2Fire.asm"
-#import "detectCollision.asm"
+/*
+    Pantallas
+*/    
 #import "screen.asm"
 #import "screen_colour.asm"
 #import "menu_screen.asm"
-#import "tickGenerator.asm"
-#import "fuel.asm"
-#import "initVars.asm"
+
+/*
+    Main Menu 
+*/    
 #import "main_menu.asm"
 
-#import "functions.asm"

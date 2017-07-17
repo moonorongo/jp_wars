@@ -1,9 +1,8 @@
-animatePlayer2Fire:
 {
           ldx            fire2     
           cpx            #$0       
           bne            initFire
-          rts                      // vuelve si status fire es 0
+          jmp            next      // vuelve si status fire es 0
           
 initFire:
           ldx            fire2     
@@ -121,36 +120,5 @@ setStatus0:
           jsr            turnOffFire2
           
 next:
-          rts
 }          
 
-
-
-
-// invert Bit 8 de disparo JP2
-invertBit8_2:
-{
-          lda            sprxBit8       
-          eor            #8             
-          sta            sprxBit8       
-          rts
-}
-
-
-
-// turn off fire player 2
-turnOffFire2:
-{
-          ldx            #$0          // si no seteo flag en 0
-          stx            fire2
-          
-          lda            spractive    // los sprites que esten activos
-          and            #255 - FJP2  // apago disparo P1
-          sta            spractive    // desactivamos el disparo
-          
-          lda            sprxBit8     // apago bit 8      
-          and            #%11110111 
-          sta            sprxBit8       
-
-          rts
-}

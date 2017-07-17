@@ -1,4 +1,3 @@
-tickGenerator:
 {
 // tick4 --------------------------------------
           ldx tick4
@@ -23,6 +22,5 @@ tickGenerator:
 
 
 !next:
-          rts
 }          
 

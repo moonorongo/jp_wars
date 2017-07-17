@@ -1,4 +1,3 @@
-animateFuel:
 {
 status0:                                // esperar hasta cambiar a status 1
           ldx            statusFuel
@@ -95,5 +94,4 @@ status4:                                // reinicializa statusFuel a 0
           
 
 exitFuel:
-          rts
 }

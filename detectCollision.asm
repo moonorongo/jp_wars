@@ -1,4 +1,3 @@
-detectCollision:
 {                                           // detecto que ocurrio una colision de sprites
           lda            $d019     
           and            #$04      
@@ -118,5 +117,4 @@ checkFireFuel2:                             // detecta si se destruyo con tiros
           stx            statusFuel
 
 skipSprDetect:
-          rts
 }
