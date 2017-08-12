@@ -32,8 +32,10 @@ start_game:
           
 main_loop:
 #import "animatePlayer1.asm"
+#import "sound_fire1.asm"
 #import "animatePlayer1Fire.asm"
 #import "animatePlayer2.asm"
+#import "sound_fire2.asm"
 #import "animatePlayer2Fire.asm"
 #import "detectCollision.asm"
 #import "tickGenerator.asm"

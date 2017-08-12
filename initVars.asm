@@ -88,4 +88,43 @@ initVars:
           ldx            #delayEntreFuels
           stx            fuelCounter
 
+{         
+          // reseteamos los registros del SID 
+          ldy #0
+          lda #0
+          sty sound_fire1_freq  // seteo en 0 la freq de disparo
+          sty sound_fire2_freq  
+loop:
+          sta sidPtr,y
+          iny 
+          cpy #25
+          bne loop
+
+          // configuramos canal 1
+          ldx #15
+          stx sid_vol
+          ldx #0
+          stx sid_ad1
+          ldx #100
+          stx sid_hfreq1
+          ldx #15*16+9          // volumen de sostenimiento max
+          stx sid_sr1           // tiempo de relajacion medio
+          
+          // configuramos canal 2
+          ldx #0
+          stx sid_ad2
+          ldx #100
+          stx sid_hfreq2
+          ldx #10*16+9          // volumen de sostenimiento max
+          stx sid_sr2           // tiempo de relajacion medio          
+          
+          // configuramos canal 3
+          ldx #0
+          stx sid_ad3
+          ldx #3
+          stx sid_hfreq3
+          ldx #15*16+9          // volumen de sostenimiento max
+          stx sid_sr3           // tiempo de relajacion medio          
+}
+          
           rts

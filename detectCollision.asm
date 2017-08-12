@@ -24,7 +24,9 @@
           inc            JP1hits   
           jsr            updateJP1hits
           ldx            #3
-          stx            statusJP2 
+          stx            statusJP2
+          
+          playNoise(3)
           
           jmp            checkJP1 
 
@@ -53,7 +55,9 @@ checkJP1:
           jsr            updateJP2hits
 
           ldx            #3
-          stx            statusJP1 
+          stx            statusJP1
+          
+          playNoise(3)
           
 
 checkJP1Fuel:                               // detecta si JP1 agarro fuel
@@ -61,6 +65,8 @@ checkJP1Fuel:                               // detecta si JP1 agarro fuel
           and            #JP1 + FUEL
           cmp            #JP1 + FUEL
           bne            checkJP2Fuel
+          
+          /* play_agarro_combustible??? ver */
           
           ldx            #4
           stx            statusFuel
@@ -102,6 +108,8 @@ checkFireFuel1:                             // detecta si se destruyo con tiros
           cmp            #FUEL + FJP1
           bne            checkFireFuel2
           
+          playNoise(10)
+          
           jsr            turnOffFire1
           ldx            #4
           stx            statusFuel
@@ -111,6 +119,8 @@ checkFireFuel2:                             // detecta si se destruyo con tiros
           and            #FUEL + FJP2
           cmp            #FUEL + FJP2
           bne            skipSprDetect
+          
+          playNoise(10)
           
           jsr            turnOffFire2
           ldx            #4

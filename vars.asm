@@ -36,7 +36,28 @@
 .const joy2      = $dc00
 .const joy1      = $dc01
 .const sprxBit8  = $d010
-      
+
+// registros del sid
+.const sidPtr    = 54272
+.const sid_vol = 54296
+.const sid_hfreq1 = 54273
+.const sid_ad1 = 54277
+.const sid_sr1 = 54278
+.const sid_wave1 = 54276
+
+.const sid_hfreq2 = 54280
+.const sid_ad2 = 54284
+.const sid_sr2 = 54285
+.const sid_wave2 = 54283
+
+.const sound_fire1_freq = $c200
+.const sound_fire2_freq = $c201
+
+.const sid_hfreq3 = 54287
+.const sid_ad3 = 54291
+.const sid_sr3 = 54292
+.const sid_wave3 = 54290
+
           
 // direcciones jetpac 1, sprite 0 
 .const sprcolor  = $d027
