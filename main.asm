@@ -45,7 +45,8 @@ main_loop:
             cpy            #1        
             beq            goto_mainmenu
 
-            waitrt()
+#import "wait_retrace.asm"
+
             jmp            main_loop 
 goto_mainmenu:
             jmp            main_menu 

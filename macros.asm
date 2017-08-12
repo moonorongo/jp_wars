@@ -1,17 +1,3 @@
-.macro waitrt() {
-          ldx            skiprt    
-          cpx            #$00
-          bne            next     
-          ldx            #skiprtCant
-          stx            skiprt    
-          
-loop:     ldx            raster
-          cpx            #$0       
-          bne            loop     
-next:     
-          dec            skiprt    
-}
-
 .macro unsetB8(spriteNumber) {
           lda            sprxBit8 
           and            #255 - spriteNumber
@@ -32,4 +18,14 @@ next:
     stx sid_wave3
     ldx #128
     stx sid_wave3
+}
+
+
+.macro playSound(freq) {
+    ldx #freq
+    stx sid_hfreq1
+    ldx #17
+    stx sid_wave1
+    ldx #16
+    stx sid_wave1
 }

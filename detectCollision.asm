@@ -26,7 +26,7 @@
           ldx            #3
           stx            statusJP2
           
-          playNoise(3)
+          playNoise(2)
           
           jmp            checkJP1 
 
@@ -57,7 +57,7 @@ checkJP1:
           ldx            #3
           stx            statusJP1
           
-          playNoise(3)
+          playNoise(2)
           
 
 checkJP1Fuel:                               // detecta si JP1 agarro fuel
@@ -66,7 +66,7 @@ checkJP1Fuel:                               // detecta si JP1 agarro fuel
           cmp            #JP1 + FUEL
           bne            checkJP2Fuel
           
-          /* play_agarro_combustible??? ver */
+          playSound(60)
           
           ldx            #4
           stx            statusFuel
@@ -87,6 +87,8 @@ checkJP2Fuel:                               // detecta si JP2 agarro fuel
           and            #JP2 + FUEL
           cmp            #JP2 + FUEL
           bne            checkFireFuel1
+          
+          playSound(60)
           
           ldx            #4
           stx            statusFuel

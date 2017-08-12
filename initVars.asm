@@ -101,22 +101,28 @@ loop:
           bne loop
 
           // configuramos canal 1
-          ldx #15
-          stx sid_vol
+          ldx #16+15            // volumen maximo 
+          stx sid_vol           // filtro seteado como pasa bajo
           ldx #0
           stx sid_ad1
           ldx #100
           stx sid_hfreq1
-          ldx #15*16+9          // volumen de sostenimiento max
-          stx sid_sr1           // tiempo de relajacion medio
+          ldx #15*16+5          // volumen de sostenimiento max
+          stx sid_sr1           // poca relajacion
           
           // configuramos canal 2
           ldx #0
           stx sid_ad2
           ldx #100
           stx sid_hfreq2
-          ldx #10*16+9          // volumen de sostenimiento max
-          stx sid_sr2           // tiempo de relajacion medio          
+          ldx #15*16+0          // volumen de sostenimiento MENOS
+          stx sid_sr2           
+          
+          ldx #0*16+2          // filtro voz 2, sin resonancia
+          stx 54295
+          
+          ldx #40
+          stx 54294            // frecuencia resonancia en 40
           
           // configuramos canal 3
           ldx #0
